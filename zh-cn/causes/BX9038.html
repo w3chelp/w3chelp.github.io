@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>BX9038: Chrome Safari Opera 中文档树的最终生成会早于通过静态方式引入的外部 CSS 资源加载完毕 - W3Help</title>
+    <meta name="keywords" content="css, js, external, file, load, 加载, document, tree, 文档树">
+    <meta name="description" content="BX9038: Chrome Safari Opera 中文档树的最终生成会早于通过静态方式引入的外部 CSS 资源加载完毕">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/article.css" media="all">
+  </head>
+  <body>
+    <div id="w3h_container">
+      <div id="w3h_header">
+        <div class="header_sidebar">
+          <h1 class="logo"><a href="../../index.html"><span>W3Help</span></a></h1>
+        </div>
+        <div class="header_content">
+          <ul class="navigation">
+            <li class="first_item"><a href="../../index.html">首页</a></li><li><a
+                href="../home/events.html">活动</a></li><li><a href="../home/news.html">新闻</a></li><li><a
+                href="../home/forum.html">论坛</a></li><li class="last_item"><a href="../home/about.html">关于我们</a></li>
+            <li class="search_item">
+              <form action="http://w3help.org/zh-cn/home/search.html" method="get">
+                <p><input name="key" id="keyInput" value="" onfocus="focusKey(this)" onblur="blurKey(this)" title="搜索"
+                    class="text"></p>
+                <p><input id="search_submit" type="image" src="../images/search_button.gif" alt="搜索"></p>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="w3h_body">
+        <div class="body_sidebar">
+          <div class="logo_shadow"></div>
+          <h2 class="category"><span><a href="../home/standards.html">标准</a></span></h2>
+          <ul class="theme"><li><a href="../standards/index.html">W3C 标准</a></li><li><a
+              href="../home/glossary.html">词汇表</a></li></ul>
+          <h2 class="category"><span><a href="../home/compatibility.html">兼容性</a></span></h2>
+          <ul class="theme"><li><a href="index.html" class="current">根本原因</a></li><li><a
+              href="../kb/index.html">知识库</a></li><li><a href="../casestudies/index.html">案例分析</a></li></ul>
+        </div>
+        <div class="body_content">
+          <p id="printButton"><a href="javascript:printArticle()" title="打印本文">打印</a></p>
+          <ul class="breadcrumbs"><li><a href="../../index.html" name="top">首页</a><span>»</span></li><li><a
+              href="../home/compatibility.html">兼容性</a><span>»</span></li><li><a
+              href="index.html">根本原因</a><span>»</span></li><li class="current">文章正文</li></ul>
+          <h1 class="title">BX9038: Chrome Safari Opera 中文档树的最终生成会早于通过静态方式引入的外部 CSS 资源加载完毕</h1>
+          <ul class="toc"><li><a href="#standard_reference">标准参考</a><span>•</span></li><li><a
+              href="#description">问题描述</a><span>•</span></li><li><a href="#influence">造成的影响</a><span>•</span></li><li><a
+              href="#impacted_browsers">受影响的浏览器</a><span>•</span></li><li><a
+              href="#analysis_of_issues">问题分析</a><span>•</span></li><li><a
+              href="#solutions">解决方案</a><span>•</span></li><li><a href="#see_also">参见</a></li></ul>
+          <div id="w3h_content">
+            <address class="author">作者：陆远</address>
+            <h2 id="standard_reference">标准参考</h2>
+            <p>无。</p>
+            <h2 id="description">问题描述</h2>
+            <p>在 Chrome Safari Opera 中，外部 CSS 文件并不会影响文档树的生成。在 IE Firefox 中，文档树会在外部 CSS 文件加载完毕之后创建完毕。</p>
+            <h2 id="influence">造成的影响</h2>
+            <p>若页面中有加载较慢的 CSS 外部文件，且在 window.onload 事件之前以及文档数建立完毕之后这段时间内获取某些在 CSS 文件中被设定了样式的元素的 CSS
+                特性值，在不同浏览器中可能产生差异。</p>
+            <h2 id="impacted_browsers">受影响的浏览器</h2>
+            <table class="list">
+              <tr>
+                <th>Chrome Safari Opera</th>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            <h2 id="analysis_of_issues">问题分析</h2>
+            <p>CSS2.1 规范，一旦用户端解析了一个文档并且创建了文档树 (<a href="http://www.w3.org/TR/CSS2/conform.html#doctree">document
+                tree</a>)，它必须为文档树中的每一个元素指定其每一个 CSS 特性。更多信息参见：CSS2.1 规范 <a
+                href="http://www.w3.org/TR/CSS21/cascade.html#value-stages">6.1 Specified, computed, and actual
+                values</a> 中的内容。</p>
+            <p>W3C 的规范中并没有明确说明具体何时文档树创建完毕，换句话说，没有提及文档树建立完成的标志，CSS 等外部文件的加载会不会影响到文档树的建立完毕时刻。</p>
+            <p>为了达到延迟 CSS 文件下载的效果，这里通过 PHP 在服务端将代码阻塞 5 秒。</p>
+            <p>分析以下代码：<em>cssjs.htm</em></p>
+            <pre>&lt;!DOCTYPE html&gt; &lt;script&gt; var t1 = new Date().getTime(); &lt;/script&gt; &lt;html&gt;
+                &lt;head&gt; &lt;style&gt; body { font-family:Consolas; } #test { font-size:48px; } &lt;/style&gt;
+                &lt;link id=&quot;css&quot; href=&quot;css.php&quot; rel=&quot;stylesheet&quot;
+                type=&quot;text/css&quot; /&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&quot;test&quot;
+                style=&quot;line-height:2; border:10px solid black; float:left;&quot;&gt;Test&lt;/div&gt; &lt;div
+                id=&quot;info&quot; style=&quot;clear:left;&quot;&gt;&lt;/div&gt; &lt;/body&gt; &lt;script&gt; function
+                $(id) { return document.getElementById(id); } if (!window.getComputedStyle) { window.getComputedStyle =
+                function($target){ return $target.currentStyle; }; } window.onload=function () { var t3 = new
+                Date().getTime(); var c = getComputedStyle($(&quot;test&quot;), null).fontSize;
+                $(&quot;info&quot;).innerHTML += '&lt;br /&gt;window.onload: &lt;span style=&quot;font-size:' + c +
+                '&quot;&gt;' + c + '&lt;/span&gt; [' + parseInt((t3 - t1) / 1000) + 's]'; } var t2 = new
+                Date().getTime(); var c = getComputedStyle($(&quot;test&quot;), null).fontSize;
+                $(&quot;info&quot;).innerHTML += '&lt;br /&gt;DOMContentLoaded: &lt;span style=&quot;font-size:' + c +
+                '&quot;&gt;' + c + '&lt;/span&gt; [' + parseInt((t2 - t1) / 1000) + 's]'; &lt;/script&gt;
+                &lt;/html&gt;</pre>
+            <p>服务端代码：<em>css.php</em></p>
+            <pre>&lt;?php header('Content-Type:text/css; charset=&quot;gb2312&quot;'); sleep(5); echo &quot;* {
+                margin:0px; padding:0px; }&quot;; echo &quot;#test { font-size:24px; }&quot;; ?&gt;</pre>
+            <p>上面页面 <em>cssjs.htm</em> 通过 LINK 元素加载了一个外部 CSS 文件 <em>css.php</em>，此文件中的 #test 的 'font-size' 特性值为 48px，CSS
+                文件会被阻塞 5 秒，分别在文档树建立完毕时以及 window.onload 事件中检测 #test 的 'font-size' 特性的计算值，以及粗略计算从页面加载至这两个时刻所花费的时间。</p>
+            <p>各浏览器中执行效果如下：</p>
+            <table class="compare">
+              <tr><th>IE6 IE7 IE8 Firefox</th><th>Chrome Safari Opera</th></tr>
+              <tr>
+                <td><img src="../../tests/BX9038/css1.gif" alt=""></td>
+                <td><img src="../../tests/BX9038/css2.gif" alt=""></td>
+              </tr>
+            </table>
+            <p>
+              可见，在 <em>Chrome Safari Opera</em> 中，被阻塞的 CSS 外部文件并不会影响页面文档树的生成。文档树在 CSS 外部文件加载完毕之前就创建完毕。
+              <br>
+              而在 IE Firefox 中，文档树会等待 CSS 外部文件加载完毕之后才真正的创建完毕。
+            </p>
+            <p>在 window.onload 事件触发后，所有浏览器均可以得到在 CSS 外部文件中定义的样式信息。</p>
+            <h2 id="solutions">解决方案</h2>
+            <p>在文档树加载完成时，获得元素的实际计算后样式并不一定正确，建议获得或处理元素计算后样式的代码应写在 window.onload 事件中。</p>
+            <h2 id="see_also">参见</h2>
+            <h3>知识库</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <h3>相关问题</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <div class="appendix">
+              <h2>测试环境</h2>
+              <table class="list">
+                <tr>
+                  <th>操作系统版本:</th>
+                  <td>Windows 7 Ultimate build 7600</td>
+                </tr>
+                <tr>
+                  <th>浏览器版本:</th>
+                  <td>
+                    IE6
+                    <br>
+                    IE7
+                    <br>
+                    IE8
+                    <br>
+                    Firefox 3.6.9
+                    <br>
+                    Chrome 7.0.517.0 dev
+                    <br>
+                    Safari 5.0.1
+                    <br>
+                    Opera 10.62
+                  </td>
+                </tr>
+                <tr>
+                  <th>测试页面:</th>
+                  <td><a href="../../tests/BX9038/cssjs.html">cssjs.htm</a></td>
+                </tr>
+                <tr>
+                  <th>本文更新时间:</th>
+                  <td>2010-09-13</td>
+                </tr>
+              </table>
+              <h2>关键字</h2>
+              <p>css js external file load 加载 document tree 文档树</p>
+            </div>
+            <div id="forumLink">
+              <div>本篇文章正在公测阶段，错误在所难免，欢迎大家提出宝贵的意见和建议。</div>
+              <a href="http://forum.csdn.net/SList/CrossBrowser/">发表评论 »</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="w3h_footer">
+      <div class="footer_content">
+        <ul><li><a href="http://www.google.com/"><img src="../logo/google.gif" alt="Google"></a></li><li><a
+            href="http://www.chinaw3c.org/"><img src="../logo/w3c-china.gif" alt="W3C-China"></a></li><li><a
+            href="http://www.mozillaonline.com/"><img src="../logo/firefox.gif" alt="FireFox"></a></li><li><a
+            href="http://www.csdn.net/"><img src="../logo/csdn.gif" alt="CSDN"></a></li><li><a
+            href="http://www.w3school.com.cn/"><img src="../logo/w3school.gif" alt="W3School"></a></li><li><a
+            href="http://www.w3ctech.com/"><img src="../logo/web-club.gif" alt="w3ctech"></a></li></ul>
+        <p class="copyright">
+          <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="知识共享许可协议" style="border-width:0"
+              src="http://i.creativecommons.org/l/by/3.0/88x31.png"></a>
+          <br>
+          本作品采用<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">知识共享署名 3.0 Unported许可协议</a>进行许可。
+          <br>
+          <br>
+          <a href="http://www.miibeian.gov.cn/">Published By Xor</a>
+        </p>
+        <p class="w3cIcon"><a href="http://validator.w3.org/check?uri=referer"><img src="../images/valid-xhtml10.gif"
+            alt="Valid XHTML 1.0 Strict"></a></p>
+      </div>
+    </div>
+  </body>
+</html>

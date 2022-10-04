@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>SJ9010: 各浏览器中 Date 对象的 getYear 方法的返回值不一致 - W3Help</title>
+    <meta name="keywords" content="Date, toLocalString, getYear">
+    <meta name="description" content="SJ9010: 各浏览器中 Date 对象的 getYear 方法的返回值不一致">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/article.css" media="all">
+  </head>
+  <body>
+    <div id="w3h_container">
+      <div id="w3h_header">
+        <div class="header_sidebar">
+          <h1 class="logo"><a href="../../index.html"><span>W3Help</span></a></h1>
+        </div>
+        <div class="header_content">
+          <ul class="navigation">
+            <li class="first_item"><a href="../../index.html">首页</a></li><li><a
+                href="../home/events.html">活动</a></li><li><a href="../home/news.html">新闻</a></li><li><a
+                href="../home/forum.html">论坛</a></li><li class="last_item"><a href="../home/about.html">关于我们</a></li>
+            <li class="search_item">
+              <form action="http://w3help.org/zh-cn/home/search.html" method="get">
+                <p><input name="key" id="keyInput" value="" onfocus="focusKey(this)" onblur="blurKey(this)" title="搜索"
+                    class="text"></p>
+                <p><input id="search_submit" type="image" src="../images/search_button.gif" alt="搜索"></p>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="w3h_body">
+        <div class="body_sidebar">
+          <div class="logo_shadow"></div>
+          <h2 class="category"><span><a href="../home/standards.html">标准</a></span></h2>
+          <ul class="theme"><li><a href="../standards/index.html">W3C 标准</a></li><li><a
+              href="../home/glossary.html">词汇表</a></li></ul>
+          <h2 class="category"><span><a href="../home/compatibility.html">兼容性</a></span></h2>
+          <ul class="theme"><li><a href="index.html" class="current">根本原因</a></li><li><a
+              href="../kb/index.html">知识库</a></li><li><a href="../casestudies/index.html">案例分析</a></li></ul>
+        </div>
+        <div class="body_content">
+          <p id="printButton"><a href="javascript:printArticle()" title="打印本文">打印</a></p>
+          <ul class="breadcrumbs"><li><a href="../../index.html" name="top">首页</a><span>»</span></li><li><a
+              href="../home/compatibility.html">兼容性</a><span>»</span></li><li><a
+              href="index.html">根本原因</a><span>»</span></li><li class="current">文章正文</li></ul>
+          <h1 class="title">SJ9010: 各浏览器中 Date 对象的 getYear 方法的返回值不一致</h1>
+          <ul class="toc"><li><a href="#standard_reference">标准参考</a><span>•</span></li><li><a
+              href="#description">问题描述</a><span>•</span></li><li><a href="#influence">造成的影响</a><span>•</span></li><li><a
+              href="#impacted_browsers">受影响的浏览器</a><span>•</span></li><li><a
+              href="#analysis_of_issues">问题分析</a><span>•</span></li><li><a
+              href="#solutions">解决方案</a><span>•</span></li><li><a href="#see_also">参见</a></li></ul>
+          <div id="w3h_content">
+            <address class="author">作者：蔡美纯 钱宝坤</address>
+            <h2 id="standard_reference">标准参考</h2>
+            <p>根据 <a href="http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf">ECMAScript
+                规范</a>附录 <strong>B.2.4 Date.prototype.getYear()</strong> 中的描述，'getYear' 返回的是当前年份与 1900 的差值，该方法已经作废，应使用
+                'getFullYear' 来代替以避免“千年虫”问题。</p>
+            <h2 id="description">问题描述</h2>
+            <p>Date 对象的 getYear 方法在各浏览器下的返回值存在差异。</p>
+            <h2 id="influence">造成的影响</h2>
+            <p>使用 Date.getYear 方法在不同的浏览器中将出现预料外的结果。</p>
+            <h2 id="impacted_browsers">受影响的浏览器</h2>
+            <table class="list">
+              <tr>
+                <th>所有浏览器</th>
+                <td></td>
+              </tr>
+            </table>
+            <h2 id="analysis_of_issues">问题分析</h2>
+            <p>根据规范，这个方法将返回当前时间的年份值与 1900 的差值，如 1800 年返回 -100，2010 返回 110。但 IE 仅在一个 1900 - 1999 年之间的日期值上调用 getYear
+                方法时，减去 1900，在其他的日期中返回的是实际的年份，就和 getFullYear 一样。<sup>1</sup></p>
+            <p>在各浏览器中运行以下代码：</p>
+            <pre>alert(new Date(1979,11,1).getYear()); alert(new Date(2010,2,17).getYear());</pre>
+            <p>各浏览器下的输出结果，如下表所示：</p>
+            <table class="compare">
+              <tr>
+                <th>IE</th>
+                <td>
+                  79
+                  <br>
+                  2010
+                </td>
+              </tr>
+              <tr>
+                <th>Firefox Chrome Safari Opera</th>
+                <td>
+                  79
+                  <br>
+                  110
+                </td>
+              </tr>
+            </table>
+            <p>可见：不能保证 Date.prototype.getYear() 在各浏览器下返回相同的字符串。</p>
+            <p class="comment">
+              注：
+              <br>
+              1. 关于 IE 下的 getYear 方法的描述，请参考 <a href="http://msdn.microsoft.com/en-us/library/x0a9sc10(VS.85).aspx">MSDN
+                  - getYear Method</a>。
+            </p>
+            <h2 id="solutions">解决方案</h2>
+            <p>要获得一个具体时间的年份，请不要使用 Date.prototype.getYear() 方法，使用 Date.prototype.getFullYear() 代替，以在各浏览器下获得相同的表现。</p>
+            <p>另外，要给一个 Date 对象设置年份，也请不要使用 Date.prototype.setYear() 方法，使用 Date.prototype.setFullYear() 代替。</p>
+            <h2 id="see_also">参见</h2>
+            <h3>知识库</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <h3>相关问题</h3>
+            <ul class="see_also"><li><a href="SJ2004.html">SJ2004: 各浏览器中 Date 对象的 toLocalString 方法的返回值不一致</a></li></ul>
+            <div class="appendix">
+              <h2>测试环境</h2>
+              <table class="list">
+                <tr>
+                  <th>操作系统版本:</th>
+                  <td>Windows 7 Ultimate build 7600</td>
+                </tr>
+                <tr>
+                  <th>浏览器版本:</th>
+                  <td>
+                    IE6
+                    <br>
+                    IE7
+                    <br>
+                    IE8
+                    <br>
+                    Firefox 3.6
+                    <br>
+                    Chrome 4.0.302.3 dev
+                    <br>
+                    Safari 4.0.4
+                    <br>
+                    Opera 10.51
+                  </td>
+                </tr>
+                <tr>
+                  <th>测试页面:</th>
+                  <td><a href="#">...</a></td>
+                </tr>
+                <tr>
+                  <th>本文更新时间:</th>
+                  <td>2010-07-09</td>
+                </tr>
+              </table>
+              <h2>关键字</h2>
+              <p>Date toLocalString getYear</p>
+            </div>
+            <div id="forumLink">
+              <div>本篇文章正在公测阶段，错误在所难免，欢迎大家提出宝贵的意见和建议。</div>
+              <a href="http://forum.csdn.net/SList/CrossBrowser/">发表评论 »</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="w3h_footer">
+      <div class="footer_content">
+        <ul><li><a href="http://www.google.com/"><img src="../logo/google.gif" alt="Google"></a></li><li><a
+            href="http://www.chinaw3c.org/"><img src="../logo/w3c-china.gif" alt="W3C-China"></a></li><li><a
+            href="http://www.mozillaonline.com/"><img src="../logo/firefox.gif" alt="FireFox"></a></li><li><a
+            href="http://www.csdn.net/"><img src="../logo/csdn.gif" alt="CSDN"></a></li><li><a
+            href="http://www.w3school.com.cn/"><img src="../logo/w3school.gif" alt="W3School"></a></li><li><a
+            href="http://www.w3ctech.com/"><img src="../logo/web-club.gif" alt="w3ctech"></a></li></ul>
+        <p class="copyright">
+          <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="知识共享许可协议" style="border-width:0"
+              src="http://i.creativecommons.org/l/by/3.0/88x31.png"></a>
+          <br>
+          本作品采用<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">知识共享署名 3.0 Unported许可协议</a>进行许可。
+          <br>
+          <br>
+          <a href="http://www.miibeian.gov.cn/">Published By Xor</a>
+        </p>
+        <p class="w3cIcon"><a href="http://validator.w3.org/check?uri=referer"><img src="../images/valid-xhtml10.gif"
+            alt="Valid XHTML 1.0 Strict"></a></p>
+      </div>
+    </div>
+  </body>
+</html>

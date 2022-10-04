@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="keywords" content="web标准搜索,兼容性问题搜索,W3C标准搜索">
+  <meta name="description" content="w3help.org站内搜索">
+  <title>W3Help - 搜索</title>
+  <link rel="stylesheet" type="text/css" href="../css/common.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../css/news.css" media="all">
+</head>
+
+<body>
+  <div id="w3h_container">
+    <div id="w3h_header">
+      <div class="header_sidebar">
+        <h1 class="logo"><a href="../index.html"><span>W3Help</span></a></h1>
+      </div>
+      <div class="header_content">
+        <ul class="navigation">
+          <li class="first_item"><a href="../index.html">首页</a></li>
+          <li><a href="events.html">活动</a></li>
+          <li><a href="news.html">新闻</a></li>
+          <li><a href="forum.html">论坛</a></li>
+          <li class="last_item"><a href="about.html">关于我们</a></li>
+          <li class="search_item">
+            <form action="http://w3help.org/zh-cn/home/search.html" method="get">
+              <p><input name="key" id="keyInput" value="" onfocus="focusKey(this)" onblur="blurKey(this)" title="搜索"
+                  class="text"></p>
+              <p><input id="search_submit" type="image" src="../images/search_button.gif" alt="搜索"></p>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="w3h_body">
+      <div class="body_sidebar">
+        <div class="logo_shadow"></div>
+        <h2 class="category"><span><a href="standards.html">标准</a></span></h2>
+        <ul class="theme">
+          <li><a href="../standards/index.html">W3C 标准</a></li>
+          <li><a href="glossary.html">词汇表</a></li>
+        </ul>
+        <h2 class="category"><span><a href="compatibility.html">兼容性</a></span></h2>
+        <ul class="theme">
+          <li><a href="../causes/index-2.html">根本原因</a></li>
+          <li><a href="../kb/index.html">知识库</a></li>
+          <li><a href="../casestudies/index.html">案例分析</a></li>
+        </ul>
+      </div>
+      <div class="body_content">
+        <h3 class="title">搜索结果列表</h3>
+        <div id="loadingBox">Loading...</div>
+        <div id="searchResultArea" style="overflow:hidden">
+          <div id="cse-search-results"></div>
+          <div style="display:none;">
+            <div id="mysite_webResult">
+              <div id="rItem" data-vars="{longUrl:function() { var i = unescapedUrl.indexOf(visibleUrl); return i < 1
+                    ? visibleUrl : unescapedUrl.substring(i);}}">
+                <div><a data-attr="{href:unescapedUrl,target:target}" data-body="html(title)"></a></div>
+                <div data-body="html(content)"></div>
+                <div data-body="longUrl()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="w3h_footer">
+    <div class="footer_content">
+      <ul>
+        <li><a href="http://www.google.com/"><img src="../logo/google.gif" alt="Google"></a></li>
+        <li><a href="http://www.chinaw3c.org/"><img src="../logo/w3c-china.gif" alt="W3C-China"></a></li>
+        <li><a href="http://www.mozillaonline.com/"><img src="../logo/firefox.gif" alt="FireFox"></a></li>
+        <li><a href="http://www.csdn.net/"><img src="../logo/csdn.gif" alt="CSDN"></a></li>
+        <li><a href="http://www.w3school.com.cn/"><img src="../logo/w3school.gif" alt="W3School"></a></li>
+        <li><a href="http://www.w3ctech.com/"><img src="../logo/web-club.gif" alt="w3ctech"></a></li>
+      </ul>
+      <p class="copyright">Copyright &copy; 2018&nbsp;&nbsp;&nbsp;<a href="http://www.miibeian.gov.cn/">Published By
+          Xor</a></p>
+    </div>
+  </div>
+  <script>
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5d59ac2200040172944d7c55102c4866";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+</body>
+
+</html>

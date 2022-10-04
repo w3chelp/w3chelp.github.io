@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>RB1003: Firefox 中 'display:table' 的元素的外边距不会与包含块的外边距折叠 - W3Help</title>
+    <meta name="keywords" content="TABLE, margin, collapse, model, 表格, 塌陷">
+    <meta name="description" content="RB1003: Firefox 中 'display:table' 的元素的外边距不会与包含块的外边距折叠">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/article.css" media="all">
+  </head>
+  <body>
+    <div id="w3h_container">
+      <div id="w3h_header">
+        <div class="header_sidebar">
+          <h1 class="logo"><a href="../../index.html"><span>W3Help</span></a></h1>
+        </div>
+        <div class="header_content">
+          <ul class="navigation">
+            <li class="first_item"><a href="../../index.html">首页</a></li><li><a
+                href="../home/events.html">活动</a></li><li><a href="../home/news.html">新闻</a></li><li><a
+                href="../home/forum.html">论坛</a></li><li class="last_item"><a href="../home/about.html">关于我们</a></li>
+            <li class="search_item">
+              <form action="http://w3help.org/zh-cn/home/search.html" method="get">
+                <p><input name="key" id="keyInput" value="" onfocus="focusKey(this)" onblur="blurKey(this)" title="搜索"
+                    class="text"></p>
+                <p><input id="search_submit" type="image" src="../images/search_button.gif" alt="搜索"></p>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="w3h_body">
+        <div class="body_sidebar">
+          <div class="logo_shadow"></div>
+          <h2 class="category"><span><a href="../home/standards.html">标准</a></span></h2>
+          <ul class="theme"><li><a href="../standards/index.html">W3C 标准</a></li><li><a
+              href="../home/glossary.html">词汇表</a></li></ul>
+          <h2 class="category"><span><a href="../home/compatibility.html">兼容性</a></span></h2>
+          <ul class="theme"><li><a href="index.html" class="current">根本原因</a></li><li><a
+              href="../kb/index.html">知识库</a></li><li><a href="../casestudies/index.html">案例分析</a></li></ul>
+        </div>
+        <div class="body_content">
+          <p id="printButton"><a href="javascript:printArticle()" title="打印本文">打印</a></p>
+          <ul class="breadcrumbs"><li><a href="../../index.html" name="top">首页</a><span>»</span></li><li><a
+              href="../home/compatibility.html">兼容性</a><span>»</span></li><li><a
+              href="index.html">根本原因</a><span>»</span></li><li class="current">文章正文</li></ul>
+          <h1 class="title">RB1003: Firefox 中 'display:table' 的元素的外边距不会与包含块的外边距折叠</h1>
+          <ul class="toc"><li><a href="#standard_reference">标准参考</a><span>•</span></li><li><a
+              href="#description">问题描述</a><span>•</span></li><li><a href="#influence">造成的影响</a><span>•</span></li><li><a
+              href="#impacted_browsers">受影响的浏览器</a><span>•</span></li><li><a
+              href="#analysis_of_issues">问题分析</a><span>•</span></li><li><a
+              href="#solutions">解决方案</a><span>•</span></li><li><a href="#see_also">参见</a></li></ul>
+          <div id="w3h_content">
+            <address class="author">作者：陆远</address>
+            <h2 id="standard_reference">标准参考</h2>
+            <p>W3C <a href="http://www.w3.org/TR/CSS21/tables.html#model">CSS2.1规范第17.4节</a> 详细描述了表格的可视化模型，此处的表格为CSS意义上的
+                '表格 '，它可以表现为一个块级元素（'display:table'）或是一个行内元素（'display:inline-table'）。</p>
+            <p>无论上述的哪种情况，表格框（table box）生成了一个匿名框（anonymous box），此匿名框包含了表格框本身以及所有的标题框（caption box，在文档顺序中）。标题框为块级框，包含了其
+                'content' 、 'padding' 、 'margin' 以及 'border' 区域，并且作为普通的块在匿名框中被渲染。标题框与表格框放置的位置关系由 '<a
+                href="http://www.w3.org/TR/CSS21/tables.html#propdef-caption-side">caption-side</a>' 特性决定。</p>
+            <p>匿名框是块级还是行内的框由表格的 'display' 特性决定，匿名框创建了新的 block formatting context （具体参见：<a href="RM8002.html">不能在 IE6
+                、IE7 及 IE8(Q) 中触发 hasLayout 并在其他浏览器中创建 Block Formatting Context 的元素的表现会有差异</a> ）。表格框（不是匿名框）为
+                'inline-table' 时将用来做垂直方向的基线对齐。匿名框的宽度为其内表格框的边框边宽度，其百分比宽度及高度则参照匿名框的包含块，而不是匿名框自身。</p>
+            <p>表格框上 'position' 、 'float' 、 'margin-*' 、 'top' 、 'right' 、 'bottom' 、 'left'
+                特性的计算后的值会作用于匿名框上，而表格框则使用上述特性的初始值。</p>
+            <p>下图展示了包含了标题框的表格，标题的上边距会与表格的上边距发生塌陷：</p>
+            <p><img src="003/01.html" alt=""></p>
+            <h2 id="description">问题描述</h2>
+            <p>Firefox 中 'display:table '的元素的外边距不会与包含块的外边距折叠</p>
+            <h2 id="influence">造成的影响</h2>
+            <p>严重的情况下会破坏整体布局</p>
+            <h2 id="impacted_browsers">受影响的浏览器</h2>
+            <table class="list">
+              <tr>
+                <th>Firefox</th>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            <h2 id="analysis_of_issues">问题分析</h2>
+            <p>对于此问题，我们通过以下的测试用例来说明。</p>
+            <p>分析以下代码：</p>
+            <pre>&lt;div style=&quot;background:gold;&quot;&gt;Top line&lt;/div&gt; &lt;div style=&quot;background:gray;
+                width:300px; <span class="hl_1">margin:20px 0;</span>&quot;&gt; &lt;table cellpadding=&quot;0&quot;
+                cellspacing=&quot;0&quot; style=&quot;background:pink; width:200px; <span class="hl_1">margin:10px
+                0;</span>&quot;&gt; &lt;tr&gt; &lt;td&gt;TD&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt; &lt;div
+                style=&quot;background:gold;&quot;&gt;Bottom line&lt;/div&gt;</pre>
+            <p>上述代码中，两个金色背景的DIV元素之间夹有一个DIV容器，容器有上下边距margin:20px 0，其子元素TABLE有上下边距margin:10px 0。</p>
+            <p>在各浏览器中效果如下：</p>
+            <table class="compare">
+              <tr><th>IE6 IE7 IE8(Q) Firefox</th><th>IE8(S) Chrome Safari Opera</th></tr>
+              <tr>
+                <td><img src="../../tests/RB1003/02.png" alt=""></td>
+                <td><img src="../../tests/RB1003/03.png" alt=""></td>
+              </tr>
+            </table>
+            <ul><li>在IE6 IE7 IE8(Q) Firefox 中， TABLE 元素的上下 'margin' 没有与其容器的上下 'margin' 发生 &quot;margin collapse&quot;
+                ，而IE中是由于TABLE元素的 'hasLayout' 属性为 'true' ，在IE中 'hasLayout' 阻止了&quot;margin collapse&quot;；</li><li>IE8(S)
+                Chrome Safari Opera 中，TABLE 元素的上下 'margin' 与其容器的上下 'margin' 发生了&quot;margin
+                collapse&quot;，是符合标准正确的表现。</li></ul>
+            <p>表格元素相对于其他块级元素存在一个特殊的“匿名框”，为表格元素设置的 'margin' 特性实际上作用于匿名框，而 Firefox 中，匿名框上的 'margin' 特性没有与其父容器的 'margin'
+                特性发生 &quot;margin collapse&quot; 。</p>
+            <p>以上测试结果对与 'display:inline-table' 时也有效。</p>
+            <h2 id="solutions">解决方案</h2>
+            <p>由于 IE6 IE7 IE8(Q) Firefox 元素的 'margin' 处理与 W3C 规范中的差异，若我们需要利用 &quot;margin collapse&quot;
+                达到某些布局效果时，在这几种浏览器中可能会由于没有发生 &quot;margin collapse&quot; 而出现 &quot;额外边距&quot; 的情况。所以应避免为表格设置上下边距，以及导致其
+                &quot;margin collapse&quot; 的发生，可以使用为表格的父元素使用 'padding' 代替表格元素的 'margin' 。</p>
+            <h2 id="see_also">参见</h2>
+            <h3>知识库</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <h3>相关问题</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <div class="appendix">
+              <h2>测试环境</h2>
+              <table class="list">
+                <tr>
+                  <th>操作系统版本:</th>
+                  <td>Windows 7 Ultimate build 7600</td>
+                </tr>
+                <tr>
+                  <th>浏览器版本:</th>
+                  <td>
+                    IE6
+                    <br>
+                    IE7
+                    <br>
+                    IE8
+                    <br>
+                    Firefox 3.6
+                    <br>
+                    Chrome 4.0.302.3 dev
+                    <br>
+                    Safari 4.0.4
+                    <br>
+                    Opera 10.60
+                  </td>
+                </tr>
+                <tr>
+                  <th>测试页面:</th>
+                  <td><a href="../../tests/RB1003/RB1003.html">RB1003.html</a></td>
+                </tr>
+                <tr>
+                  <th>本文更新时间:</th>
+                  <td>2010-08-09</td>
+                </tr>
+              </table>
+              <h2>关键字</h2>
+              <p>TABLE margin collapse model 表格 塌陷</p>
+            </div>
+            <div id="forumLink">
+              <div>本篇文章正在公测阶段，错误在所难免，欢迎大家提出宝贵的意见和建议。</div>
+              <a href="http://forum.csdn.net/SList/CrossBrowser/">发表评论 »</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="w3h_footer">
+      <div class="footer_content">
+        <ul><li><a href="http://www.google.com/"><img src="../logo/google.gif" alt="Google"></a></li><li><a
+            href="http://www.chinaw3c.org/"><img src="../logo/w3c-china.gif" alt="W3C-China"></a></li><li><a
+            href="http://www.mozillaonline.com/"><img src="../logo/firefox.gif" alt="FireFox"></a></li><li><a
+            href="http://www.csdn.net/"><img src="../logo/csdn.gif" alt="CSDN"></a></li><li><a
+            href="http://www.w3school.com.cn/"><img src="../logo/w3school.gif" alt="W3School"></a></li><li><a
+            href="http://www.w3ctech.com/"><img src="../logo/web-club.gif" alt="w3ctech"></a></li></ul>
+        <p class="copyright">
+          <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="知识共享许可协议" style="border-width:0"
+              src="http://i.creativecommons.org/l/by/3.0/88x31.png"></a>
+          <br>
+          本作品采用<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">知识共享署名 3.0 Unported许可协议</a>进行许可。
+          <br>
+          <br>
+          <a href="http://www.miibeian.gov.cn/">Published By Xor</a>
+        </p>
+        <p class="w3cIcon"><a href="http://validator.w3.org/check?uri=referer"><img src="../images/valid-xhtml10.gif"
+            alt="Valid XHTML 1.0 Strict"></a></p>
+      </div>
+    </div>
+  </body>
+</html>

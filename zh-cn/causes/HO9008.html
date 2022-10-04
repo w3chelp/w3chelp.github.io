@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>HO9008: IE Opera 中可以通过 MAP 元素的 id 属性与 IMG 元素相关联 - W3Help</title>
+    <meta name="keywords" content="IMG, MAP, name, id, usemap, 关联, 图片, 链接, 区域">
+    <meta name="description" content="HO9008: IE Opera 中可以通过 MAP 元素的 id 属性与 IMG 元素相关联">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/article.css" media="all">
+  </head>
+  <body>
+    <div id="w3h_container">
+      <div id="w3h_header">
+        <div class="header_sidebar">
+          <h1 class="logo"><a href="../../index.html"><span>W3Help</span></a></h1>
+        </div>
+        <div class="header_content">
+          <ul class="navigation">
+            <li class="first_item"><a href="../../index.html">首页</a></li><li><a
+                href="../home/events.html">活动</a></li><li><a href="../home/news.html">新闻</a></li><li><a
+                href="../home/forum.html">论坛</a></li><li class="last_item"><a href="../home/about.html">关于我们</a></li>
+            <li class="search_item">
+              <form action="http://w3help.org/zh-cn/home/search.html" method="get">
+                <p><input name="key" id="keyInput" value="" onfocus="focusKey(this)" onblur="blurKey(this)" title="搜索"
+                    class="text"></p>
+                <p><input id="search_submit" type="image" src="../images/search_button.gif" alt="搜索"></p>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="w3h_body">
+        <div class="body_sidebar">
+          <div class="logo_shadow"></div>
+          <h2 class="category"><span><a href="../home/standards.html">标准</a></span></h2>
+          <ul class="theme"><li><a href="../standards/index.html">W3C 标准</a></li><li><a
+              href="../home/glossary.html">词汇表</a></li></ul>
+          <h2 class="category"><span><a href="../home/compatibility.html">兼容性</a></span></h2>
+          <ul class="theme"><li><a href="index.html" class="current">根本原因</a></li><li><a
+              href="../kb/index.html">知识库</a></li><li><a href="../casestudies/index.html">案例分析</a></li></ul>
+        </div>
+        <div class="body_content">
+          <p id="printButton"><a href="javascript:printArticle()" title="打印本文">打印</a></p>
+          <ul class="breadcrumbs"><li><a href="../../index.html" name="top">首页</a><span>»</span></li><li><a
+              href="../home/compatibility.html">兼容性</a><span>»</span></li><li><a
+              href="index.html">根本原因</a><span>»</span></li><li class="current">文章正文</li></ul>
+          <h1 class="title">HO9008: IE Opera 中可以通过 MAP 元素的 id 属性与 IMG 元素相关联</h1>
+          <ul class="toc"><li><a href="#standard_reference">标准参考</a><span>•</span></li><li><a
+              href="#description">问题描述</a><span>•</span></li><li><a href="#influence">造成的影响</a><span>•</span></li><li><a
+              href="#impacted_browsers">受影响的浏览器</a><span>•</span></li><li><a
+              href="#analysis_of_issues">问题分析</a><span>•</span></li><li><a
+              href="#solutions">解决方案</a><span>•</span></li><li><a href="#see_also">参见</a></li></ul>
+          <div id="w3h_content">
+            <address class="author">作者：陆远</address>
+            <h2 id="standard_reference">标准参考</h2>
+            <p>根据 HTML4.01 规范中的描述，MAP 元素的 name 属性指定了一个映射到 IMG 元素的名称。此时，IMG 元素必须通过 usemap 属性匹配关联的 MAP 元素的 name 属性值。</p>
+            <p>关于 MAP 与 IMG 元素的更多内容，请参考 HTML4.01 规范 <a
+                href="http://www.w3.org/TR/html401/struct/objects.html#h-13.6.1">13.6.1 Client-side image maps: the MAP
+                and AREA elements</a> 中的内容。</p>
+            <h2 id="description">问题描述</h2>
+            <p>IE Opera 中，IMG 元素通过其 usemap 属性可以与 MAP 元素的 id 属性及 name 属性关联，而 Firefox Chrome Safari 中仅限于 MAP 元素的 name
+                属性。</p>
+            <h2 id="influence">造成的影响</h2>
+            <p>若仅为 MAP 元素设置了 id 属性并欲通过 IMG 元素的 usemap 属性使两者关联，则在 Firefox Chrome Safari 中 MAP 元素内定义的超链接将无法响应。</p>
+            <h2 id="impacted_browsers">受影响的浏览器</h2>
+            <table class="list">
+              <tr>
+                <th>IE6 IE7 IE8 Opera</th>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            <h2 id="analysis_of_issues">问题分析</h2>
+            <p>分析以下代码：</p>
+            <pre>&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;/head&gt; &lt;body style=&quot;font:16px 'Trebuchet
+                MS';&quot;&gt; id=&quot;map1&quot;&lt;br /&gt; &lt;img src=&quot;google.gif&quot; border=&quot;0&quot;
+                usemap=&quot;#map1&quot; /&gt; &lt;map id=&quot;map1&quot;&gt; &lt;area href=&quot;javascript:void
+                0;&quot; onclick=&quot;document.getElementById('info1').innerHTML='&lt;span
+                style=\'background:coral\'&gt;OK&lt;/span&gt;';&quot; shape=&quot;rect&quot;
+                coords=&quot;0,0,150,55&quot; /&gt; &lt;/map&gt; &lt;div id=&quot;info1&quot;&gt;&lt;span
+                style=&quot;background:lightgreen&quot;&gt;Fail&lt;/span&gt;&lt;/div&gt; &lt;br /&gt;
+                name=&quot;map2&quot;&lt;br /&gt; &lt;img src=&quot;google.gif&quot; border=&quot;0&quot;
+                usemap=&quot;#map2&quot; /&gt; &lt;map name=&quot;map2&quot;&gt; &lt;area href=&quot;javascript:void
+                0;&quot; onclick=&quot;document.getElementById('info2').innerHTML='&lt;span
+                style=\'background:coral\'&gt;OK&lt;/span&gt;';&quot; shape=&quot;rect&quot;
+                coords=&quot;0,0,150,55&quot; /&gt; &lt;/map&gt; &lt;div id=&quot;info2&quot;&gt;&lt;span
+                style=&quot;background:lightgreen&quot;&gt;Fail&lt;/span&gt;&lt;/div&gt; &lt;/body&gt;
+                &lt;/html&gt;</pre>
+            <p>上面代码包含两组，每组均为一个 IMG 元素及一个 MAP 元素，IMG 元素的 usemap 属性值为 &quot;#map&quot;，而两组的区别为 MAP 元素的 id 属性与 name 属性，MAP
+                元素内的 AREA 元素定义了响应区域。鼠标点击图片。</p>
+            <p>这段代码在不同的浏览器环境中的表现：</p>
+            <table class="compare">
+              <tr><th>&nbsp;</th><th>IE Opera</th><th>Firefox Chrome Safari</th></tr>
+              <tr>
+                <th>第一组设定 id 属性，鼠标点击图片后</th>
+                <td><span class="hl_2">可以响应</span></td>
+                <td><span class="hl_1">无法响应</span></td>
+              </tr>
+              <tr>
+                <th>第二组设定 name 属性，鼠标点击图片后</th>
+                <td><span class="hl_2">可以响应</span></td>
+                <td><span class="hl_2">可以响应</span></td>
+              </tr>
+              <tr>
+                <th>截图</th>
+                <td><img src="../../tests/HO9008/map1.gif" alt=""></td>
+                <td><img src="../../tests/HO9008/map2.gif" alt=""></td>
+              </tr>
+            </table>
+            <p>可见：</p>
+            <p>
+              在 <em>IE Opera</em> 中，仅仅为 MAP 元素设定 id 属性即可使其与设定了相应的 usemap 属性值的 IMG 元素相关联。
+              <br>
+              而所有浏览器均支持 HTML4.01 规范所述，IMG 元素通过 usemap 属性匹配关联的 MAP 元素的 name 属性值。
+            </p>
+            <h2 id="solutions">解决方案</h2>
+            <p>若需要 IMG 元素与 MAP 元素相关联，注意通过 IMG 元素的 usemap 属性关联的 MAP 元素的 name 属性的值。</p>
+            <h2 id="see_also">参见</h2>
+            <h3>知识库</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <h3>相关问题</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <div class="appendix">
+              <h2>测试环境</h2>
+              <table class="list">
+                <tr>
+                  <th>操作系统版本:</th>
+                  <td>Windows 7 Ultimate build 7600</td>
+                </tr>
+                <tr>
+                  <th>浏览器版本:</th>
+                  <td>
+                    IE6
+                    <br>
+                    IE7
+                    <br>
+                    IE8
+                    <br>
+                    Firefox 3.6.10
+                    <br>
+                    Chrome 7.0.517.17 dev
+                    <br>
+                    Safari 5.0.2
+                    <br>
+                    Opera 10.62
+                  </td>
+                </tr>
+                <tr>
+                  <th>测试页面:</th>
+                  <td><a href="../../tests/HO9008/map.html">map.html</a></td>
+                </tr>
+                <tr>
+                  <th>本文更新时间:</th>
+                  <td>2010-09-28</td>
+                </tr>
+              </table>
+              <h2>关键字</h2>
+              <p>IMG MAP name id usemap 关联 图片 链接 区域</p>
+            </div>
+            <div id="forumLink">
+              <div>本篇文章正在公测阶段，错误在所难免，欢迎大家提出宝贵的意见和建议。</div>
+              <a href="http://forum.csdn.net/SList/CrossBrowser/">发表评论 »</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="w3h_footer">
+      <div class="footer_content">
+        <ul><li><a href="http://www.google.com/"><img src="../logo/google.gif" alt="Google"></a></li><li><a
+            href="http://www.chinaw3c.org/"><img src="../logo/w3c-china.gif" alt="W3C-China"></a></li><li><a
+            href="http://www.mozillaonline.com/"><img src="../logo/firefox.gif" alt="FireFox"></a></li><li><a
+            href="http://www.csdn.net/"><img src="../logo/csdn.gif" alt="CSDN"></a></li><li><a
+            href="http://www.w3school.com.cn/"><img src="../logo/w3school.gif" alt="W3School"></a></li><li><a
+            href="http://www.w3ctech.com/"><img src="../logo/web-club.gif" alt="w3ctech"></a></li></ul>
+        <p class="copyright">
+          <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="知识共享许可协议" style="border-width:0"
+              src="http://i.creativecommons.org/l/by/3.0/88x31.png"></a>
+          <br>
+          本作品采用<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">知识共享署名 3.0 Unported许可协议</a>进行许可。
+          <br>
+          <br>
+          <a href="http://www.miibeian.gov.cn/">Published By Xor</a>
+        </p>
+        <p class="w3cIcon"><a href="http://validator.w3.org/check?uri=referer"><img src="../images/valid-xhtml10.gif"
+            alt="Valid XHTML 1.0 Strict"></a></p>
+      </div>
+    </div>
+  </body>
+</html>

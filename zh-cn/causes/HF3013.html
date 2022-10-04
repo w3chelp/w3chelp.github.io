@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>HF3013: IE6 IE7 不支持 OPTION 和 OPTGROUP 元素的 disabled 属性 - W3Help</title>
+    <meta name="keywords" content="OPTION, OPTGROUP, disabled">
+    <meta name="description" content="HF3013: IE6 IE7 不支持 OPTION 和 OPTGROUP 元素的 disabled 属性">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/article.css" media="all">
+  </head>
+  <body>
+    <div id="w3h_container">
+      <div id="w3h_header">
+        <div class="header_sidebar">
+          <h1 class="logo"><a href="../../index.html"><span>W3Help</span></a></h1>
+        </div>
+        <div class="header_content">
+          <ul class="navigation">
+            <li class="first_item"><a href="../../index.html">首页</a></li><li><a
+                href="../home/events.html">活动</a></li><li><a href="../home/news.html">新闻</a></li><li><a
+                href="../home/forum.html">论坛</a></li><li class="last_item"><a href="../home/about.html">关于我们</a></li>
+            <li class="search_item">
+              <form action="http://w3help.org/zh-cn/home/search.html" method="get">
+                <p><input name="key" id="keyInput" value="" onfocus="focusKey(this)" onblur="blurKey(this)" title="搜索"
+                    class="text"></p>
+                <p><input id="search_submit" type="image" src="../images/search_button.gif" alt="搜索"></p>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="w3h_body">
+        <div class="body_sidebar">
+          <div class="logo_shadow"></div>
+          <h2 class="category"><span><a href="../home/standards.html">标准</a></span></h2>
+          <ul class="theme"><li><a href="../standards/index.html">W3C 标准</a></li><li><a
+              href="../home/glossary.html">词汇表</a></li></ul>
+          <h2 class="category"><span><a href="../home/compatibility.html">兼容性</a></span></h2>
+          <ul class="theme"><li><a href="index.html" class="current">根本原因</a></li><li><a
+              href="../kb/index.html">知识库</a></li><li><a href="../casestudies/index.html">案例分析</a></li></ul>
+        </div>
+        <div class="body_content">
+          <p id="printButton"><a href="javascript:printArticle()" title="打印本文">打印</a></p>
+          <ul class="breadcrumbs"><li><a href="../../index.html" name="top">首页</a><span>»</span></li><li><a
+              href="../home/compatibility.html">兼容性</a><span>»</span></li><li><a
+              href="index.html">根本原因</a><span>»</span></li><li class="current">文章正文</li></ul>
+          <h1 class="title">HF3013: IE6 IE7 不支持 OPTION 和 OPTGROUP 元素的 disabled 属性</h1>
+          <ul class="toc"><li><a href="#standard_reference">标准参考</a><span>•</span></li><li><a
+              href="#description">问题描述</a><span>•</span></li><li><a href="#influence">造成的影响</a><span>•</span></li><li><a
+              href="#impacted_browsers">受影响的浏览器</a><span>•</span></li><li><a
+              href="#analysis_of_issues">问题分析</a><span>•</span></li><li><a
+              href="#solutions">解决方案</a><span>•</span></li><li><a href="#see_also">参见</a></li></ul>
+          <div id="w3h_content">
+            <address class="author">作者： 王军</address>
+            <h2 id="standard_reference">标准参考</h2>
+            <p>HTML 4.01 中规定，SELECT 元素创建了用来选择的用户选项菜单，每一个用户选项都用 OPTION 元素表示，一个 SELECT 元素中至少有一个 OPTION 元素。</p>
+            <p>OPTGROUP 元素允许把选项在逻辑上分组，当用户必须从一个很长的选项列表中选择的时候 OPTGROUP 非常有用； 把相关的选项分组比把所有选项放在一个长的选项列表中更容易使人记住和掌握。OPTGROUP
+                元素必须直接存在于 SELECT 之中。</p>
+            <p>HTML 4.01 的 Forms 一章中定义了使用 'disabled' 属性控制表单元素是否失效。当设置了 'disabled' 属性后，对元素会有如下影响：</p>
+            <ul><li>元素无法获得焦点；</li><li>在使用 Tab 导航时会被跳过；</li><li>元素不是一个 <a
+                href="http://www.w3.org/TR/REC-html40/interact/forms.html#successful-controls">successful
+                controls</a>。</li></ul>
+            <p>只有 BUTTON、INPUT、OPTGROUP、OPTION、SELECT 和 TEXTAREA 元素支持 'disabled' 属性， UA 决定如何渲染设置了 'disabled'
+                的元素，现代浏览器一般会把它们的外观置灰。</p>
+            <p>关于 SELECT、OPTGROUP 及 OPTION 元素的更多信息，请参考 HTML 4.01 <a
+                href="http://www.w3.org/TR/REC-html40/interact/forms.html#h-17.6">17.6 The SELECT, OPTGROUP, and OPTION
+                elements</a>。</p>
+            <p>关于无效控件（disabled controls）的更多信息，请参考 HTML 4.01 <a
+                href="http://www.w3.org/TR/REC-html40/interact/forms.html#h-17.12.1">17.12.1 Disabled controls</a>。</p>
+            <h2 id="description">问题描述</h2>
+            <p>IE6 IE7 中对 OPTION 和 OPTGROUP 元素设置 'disabled' 属性无效，元素仍然是有效的。</p>
+            <h2 id="influence">造成的影响</h2>
+            <p>在 IE6 IE7 中对 OPTION 和 OPTGROUP 元素设置 'disabled' 属性无效，这除了导致在外观上 OPTION 和 OPTGROUP 元素与其它浏览器存在差异，
+                还可能导致依赖于这两个元素 disabled 特性值的脚本代码出现异常。</p>
+            <h2 id="impacted_browsers">受影响的浏览器</h2>
+            <table class="list">
+              <tr>
+                <th>IE6 IE7</th>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            <h2 id="analysis_of_issues">问题分析</h2>
+            <p>分析以下代码：</p>
+            <pre>&lt;form action="google.com" method="post"&gt; &lt;select name="sel" id="select"
+                multiple="multiple"&gt; &lt;option value="1" disabled="disabled"&gt;111&lt;/option&gt; &lt;optgroup
+                label="disabled OPTGROUP" disabled="disabled"&gt; &lt;option value="2"&gt;2222&lt;/option&gt; &lt;option
+                value="3"&gt;3333&lt;/option&gt; &lt;/optgroup&gt; &lt;/select&gt; &lt;/form&gt;</pre>
+            <p>各浏览器中表现如下：</p>
+            <table class="compare">
+              <tbody>
+                <tr><th>IE6 IE7</th><th>IE8 Firefox Chrome Safari Opera</th></tr>
+                <tr>
+                  <td><img src="../../tests/HF3013/ie67.png" alt=""></td>
+                  <td><img src="../../tests/HF3013/others.png" alt=""></td>
+                </tr>
+              </tbody>
+            </table>
+            <p>从上图中可以看出 IE6 IE7 下对 OPTION 和 OPTGROUP 元素设置 disabled 无效，外观没有置灰，并且可以选中，而其它浏览器中则不可以。</p>
+            <h2 id="solutions">解决方案</h2>
+            <p>使用其他方式使想要 disabled 的 OPTION 和 OPTGROUP 无效，比如使用脚本动态删除 OPTION 或 OPTGROUP。</p>
+            <h2 id="see_also">参见</h2>
+            <h3>知识库</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <h3>相关问题</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <div class="appendix">
+              <h2>测试环境</h2>
+              <table class="list">
+                <tr>
+                  <th>操作系统版本:</th>
+                  <td>Windows 7 Ultimate build 7600</td>
+                </tr>
+                <tr>
+                  <th>浏览器版本:</th>
+                  <td>
+                    IE6
+                    <br>
+                    IE7
+                    <br>
+                    IE8
+                    <br>
+                    Firefox 3.6.9
+                    <br>
+                    Chrome 7.0.517.5 dev
+                    <br>
+                    Safari 5.0.2 (7533.18.5)
+                    <br>
+                    Opera 10.62
+                  </td>
+                </tr>
+                <tr>
+                  <th>测试页面:</th>
+                  <td><a href="../../tests/HF3013/OPTION_OPTGROUP_disabled.html">OPTION_OPTGROUP_disabled.html</a></td>
+                </tr>
+                <tr>
+                  <th>本文更新时间:</th>
+                  <td>2010-09-14</td>
+                </tr>
+              </table>
+              <h2>关键字</h2>
+              <p>OPTION OPTGROUP disabled</p>
+            </div>
+            <div id="forumLink">
+              <div>本篇文章正在公测阶段，错误在所难免，欢迎大家提出宝贵的意见和建议。</div>
+              <a href="http://forum.csdn.net/SList/CrossBrowser/">发表评论 »</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="w3h_footer">
+      <div class="footer_content">
+        <ul><li><a href="http://www.google.com/"><img src="../logo/google.gif" alt="Google"></a></li><li><a
+            href="http://www.chinaw3c.org/"><img src="../logo/w3c-china.gif" alt="W3C-China"></a></li><li><a
+            href="http://www.mozillaonline.com/"><img src="../logo/firefox.gif" alt="FireFox"></a></li><li><a
+            href="http://www.csdn.net/"><img src="../logo/csdn.gif" alt="CSDN"></a></li><li><a
+            href="http://www.w3school.com.cn/"><img src="../logo/w3school.gif" alt="W3School"></a></li><li><a
+            href="http://www.w3ctech.com/"><img src="../logo/web-club.gif" alt="w3ctech"></a></li></ul>
+        <p class="copyright">
+          <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="知识共享许可协议" style="border-width:0"
+              src="http://i.creativecommons.org/l/by/3.0/88x31.png"></a>
+          <br>
+          本作品采用<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">知识共享署名 3.0 Unported许可协议</a>进行许可。
+          <br>
+          <br>
+          <a href="http://www.miibeian.gov.cn/">Published By Xor</a>
+        </p>
+        <p class="w3cIcon"><a href="http://validator.w3.org/check?uri=referer"><img src="../images/valid-xhtml10.gif"
+            alt="Valid XHTML 1.0 Strict"></a></p>
+      </div>
+    </div>
+  </body>
+</html>

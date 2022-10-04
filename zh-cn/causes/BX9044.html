@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>BX9044: Chrome Safari 中引用非同源页面 window 对象的成员时不抛异常 - W3Help</title>
+    <meta name="keywords" content="Same, origin, policy, cross, domain, try, catch">
+    <meta name="description" content="BX9044: Chrome Safari 中引用非同源页面 window 对象的成员时不抛异常">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/article.css" media="all">
+  </head>
+  <body>
+    <div id="w3h_container">
+      <div id="w3h_header">
+        <div class="header_sidebar">
+          <h1 class="logo"><a href="../../index.html"><span>W3Help</span></a></h1>
+        </div>
+        <div class="header_content">
+          <ul class="navigation">
+            <li class="first_item"><a href="../../index.html">首页</a></li><li><a
+                href="../home/events.html">活动</a></li><li><a href="../home/news.html">新闻</a></li><li><a
+                href="../home/forum.html">论坛</a></li><li class="last_item"><a href="../home/about.html">关于我们</a></li>
+            <li class="search_item">
+              <form action="http://w3help.org/zh-cn/home/search.html" method="get">
+                <p><input name="key" id="keyInput" value="" onfocus="focusKey(this)" onblur="blurKey(this)" title="搜索"
+                    class="text"></p>
+                <p><input id="search_submit" type="image" src="../images/search_button.gif" alt="搜索"></p>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="w3h_body">
+        <div class="body_sidebar">
+          <div class="logo_shadow"></div>
+          <h2 class="category"><span><a href="../home/standards.html">标准</a></span></h2>
+          <ul class="theme"><li><a href="../standards/index.html">W3C 标准</a></li><li><a
+              href="../home/glossary.html">词汇表</a></li></ul>
+          <h2 class="category"><span><a href="../home/compatibility.html">兼容性</a></span></h2>
+          <ul class="theme"><li><a href="index.html" class="current">根本原因</a></li><li><a
+              href="../kb/index.html">知识库</a></li><li><a href="../casestudies/index.html">案例分析</a></li></ul>
+        </div>
+        <div class="body_content">
+          <p id="printButton"><a href="javascript:printArticle()" title="打印本文">打印</a></p>
+          <ul class="breadcrumbs"><li><a href="../../index.html" name="top">首页</a><span>»</span></li><li><a
+              href="../home/compatibility.html">兼容性</a><span>»</span></li><li><a
+              href="index.html">根本原因</a><span>»</span></li><li class="current">文章正文</li></ul>
+          <h1 class="title">BX9044: Chrome Safari 中引用非同源页面 window 对象的成员时不抛异常</h1>
+          <ul class="toc"><li><a href="#standard_reference">标准参考</a><span>•</span></li><li><a
+              href="#description">问题描述</a><span>•</span></li><li><a href="#influence">造成的影响</a><span>•</span></li><li><a
+              href="#impacted_browsers">受影响的浏览器</a><span>•</span></li><li><a
+              href="#analysis_of_issues">问题分析</a><span>•</span></li><li><a
+              href="#solutions">解决方案</a><span>•</span></li><li><a href="#see_also">参见</a></li></ul>
+          <div id="w3h_content">
+            <address class="author">作者：王军</address>
+            <h2 id="standard_reference">标准参考</h2>
+            <p>无。</p>
+            <h2 id="description">问题描述</h2>
+            <p>在 Chrome Safari 中引用非同源页面的 window 对象的成员时不会抛出异常，而在其它浏览器中则会。</p>
+            <h2 id="influence">造成的影响</h2>
+            <p>在引用非同源页面的 window 对象的成员时，Chrome Safari 中无法捕获异常，这将导致对应 catch 块中的语句不执行， 而其它浏览器则可以捕获并执行 catch
+                中的语句，这可能导致脚本在某些浏览器中执行错误，功能失效。</p>
+            <p>例如：</p>
+            <pre>var isSameDomain = true; try { var parentName = top.parentName; //假设这里的 top.parentName 引用来自非同源页面 }
+                catch(e){ isSameDomain = false; }</pre>
+            <p>执行这段代码，在 Chrome Safari 中变量 'isSameDomain' 的值为 true，而其它浏览器中则为 false，依赖于 'isSameDomain'
+                的条件判断结果在这两类浏览器中就会产生差异。</p>
+            <h2 id="impacted_browsers">受影响的浏览器</h2>
+            <table class="list">
+              <tr>
+                <th>Chrome Safari</th>
+                <td></td>
+              </tr>
+            </table>
+            <h2 id="analysis_of_issues">问题分析</h2>
+            <h3>1. 同源策略</h3>
+            <p>同源策略对于一些浏览器端程序语言，例如 JavaScript，是非常重要的安全概念，它允许运行在同一站点源页面上的脚本无明确限制的访问其它页面中方法和属性，但阻止不同站点间跨页面的方法和属性访问。
+                同源策略的概念可以追溯到 Netscape Navigator 2.0，现代浏览器都应用了该策略，并将其扩展到其它脚本语言或一些除直接的 DOM 操作外的机制。</p>
+            <p>“同源”的“源”指域名，应用层协议以及运行脚本的 HTML 文档的 TCP
+                端口，只有当两个页面的这三部分完全相同时，才可以说它们是同源。非同源的两个页面间的访问，我们称之为<strong>跨域</strong>访问。</p>
+            <p>下表举例说明了相对于 'http://www.example.com/dir/page.html' 哪些 URL 是同源的哪些是非同源的：</p>
+            <table class="compare">
+              <tbody>
+                <tr><th>URL</th><th>结果</th><th>原因</th></tr>
+                <tr>
+                  <td>http://www.example.com/dir2/other.html</td>
+                  <td>成功</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>http://www.example.com:81/dir/other.html</td>
+                  <td>失败</td>
+                  <td>同样的协议和主机名，但是端口不同</td>
+                </tr>
+                <tr>
+                  <td>https://www.example.com/dir/other.html</td>
+                  <td>失败</td>
+                  <td>不同的协议</td>
+                </tr>
+                <tr>
+                  <td>http://en.example.com/dir/other.html</td>
+                  <td>失败</td>
+                  <td>不同的主机名</td>
+                </tr>
+                <tr>
+                  <td>http://example.com/dir/other.html</td>
+                  <td>失败</td>
+                  <td>不同的主机名，必须精确匹配</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>关于同源策略的更多信息，请参考维基百科 <a href="http://en.wikipedia.org/wiki/Same_origin_policy">Same origin
+                policy</a>。</p>
+            <h3>2. 模拟跨域操作重现问题</h3>
+            <p>下面我们通过在页面的 IFRAME 中使用 'window.top' 访问非同源页面的 window 对象的成员模拟跨域操作，来重现本文讨论的问题。</p>
+            <p>这里我们在本地搭建服务器，编辑 hosts 文件（Windows 7 下文件位于 C:\Windows\System32\drivers\etc\hosts），增加两个域名映射到本地IP，模拟两个域：</p>
+            <pre>127.0.0.1 domain1.example.com 127.0.0.1 domain2.example.com</pre>
+            <p>在包含 IFRAME 的主页面（main.html）中定义一个全局变量和全局函数，用来被 IFRAME 中的页面脚本引用和调用：</p>
+            <pre>&lt;iframe src="<span
+                class="hl_1">http://domain2.example.com/test/iframe.html</span>"&gt;&lt;/iframe&gt; &lt;script
+                type="text/javascript"&gt; function sayHello(){ alert("Hello!");} window.hi = "hi";
+                &lt;/script&gt;</pre>
+            <p>IFRAME 页面（iframe.html）中使用 window.top 访问主页面中的成员：</p>
+            <pre>&lt;div id="msg"&gt;&lt;/div&gt; &lt;script type="text/javascript"&gt; function
+                info(msg){document.getElementById("msg").innerHTML += msg + "&lt;br /&gt;"} try{ var a = top.sayHello;
+                info("&lt;strong&gt;top.sayHello : " + a + " &lt;/strong&gt;."); }catch(e){ info(e); } try { var a =
+                top.sayHello(); info("&lt;strong&gt;top.sayHello() : " + a + " &lt;/strong&gt;."); } catch(e) { info(e);
+                } &lt;/script&gt;</pre>
+            <p>这里我们从 'domain1.example.com' 这个域访问 'main.html', 从 'domain2.example.com' 这个域访问 'iframe.html'， 当在
+                'iframe.html' 中使用 'window.top' 访问 'main.html' 中的变量及函数时，就形成了跨域访问。</p>
+            <p>页面载入完成后各浏览器中表现如下：</p>
+            <table class="compare">
+              <tbody>
+                <tr>
+                  <th>IE6 IE7</th>
+                  <td><img src="../../tests/BX9044/ie67.png" alt=""></td>
+                  <th>IE8</th>
+                  <td><img src="../../tests/BX9044/ie8.png" alt=""></td>
+                </tr>
+                <tr>
+                  <th>Firefox</th>
+                  <td><img src="../../tests/BX9044/firefox.png" alt=""></td>
+                  <th>Opera</th>
+                  <td><img src="../../tests/BX9044/opera.png" alt=""></td>
+                </tr>
+                <tr>
+                  <th>Chrome</th>
+                  <td><img src="../../tests/BX9044/chrome.png" alt=""></td>
+                  <th>Safari</th>
+                  <td><img src="../../tests/BX9044/safari.png" alt=""></td>
+                </tr>
+              </tbody>
+            </table>
+            <p>从测试结果中可以看出，在所有浏览器中都无法成功访问非同源页面 window 对象的成员， 但在 Chrome Safari 中只跨域引用其它页面的 window 对象的成员时不会抛异常（返回
+                undefined），调用时则会； 其它浏览器在跨域引用及调用其它页面的 window 对象成员时都会抛出异常。</p>
+            <h2 id="solutions">解决方案</h2>
+            <p>不依赖捕获跨域引用其它页面的 window 对象成员抛出的异常来设计代码逻辑。</p>
+            <h2 id="see_also">参见</h2>
+            <h3>知识库</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <h3>相关问题</h3>
+            <ul class="see_also"><li><a href="BT9021.html">...</a></li></ul>
+            <div class="appendix">
+              <h2>测试环境</h2>
+              <table class="list">
+                <tr>
+                  <th>操作系统版本:</th>
+                  <td>Windows 7 Ultimate build 7600</td>
+                </tr>
+                <tr>
+                  <th>浏览器版本:</th>
+                  <td>
+                    IE6
+                    <br>
+                    IE7
+                    <br>
+                    IE8
+                    <br>
+                    Firefox 3.6.9
+                    <br>
+                    Chrome 7.0.517.0 dev
+                    <br>
+                    Safari 5.0.2 (7533.18.5)
+                    <br>
+                    Opera 10.62
+                  </td>
+                </tr>
+                <tr>
+                  <th>测试页面:</th>
+                  <td>
+                    <a href="../../tests/BX9044/main.html">main.html</a>
+                    <br>
+                    <a href="../../tests/BX9044/iframe.html">iframe.html</a>
+                  </td>
+                </tr>
+                <tr>
+                  <th>本文更新时间:</th>
+                  <td>2010-09-14</td>
+                </tr>
+              </table>
+              <h2>关键字</h2>
+              <p>Same origin policy cross domain try catch</p>
+            </div>
+            <div id="forumLink">
+              <div>本篇文章正在公测阶段，错误在所难免，欢迎大家提出宝贵的意见和建议。</div>
+              <a href="http://forum.csdn.net/SList/CrossBrowser/">发表评论 »</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="w3h_footer">
+      <div class="footer_content">
+        <ul><li><a href="http://www.google.com/"><img src="../logo/google.gif" alt="Google"></a></li><li><a
+            href="http://www.chinaw3c.org/"><img src="../logo/w3c-china.gif" alt="W3C-China"></a></li><li><a
+            href="http://www.mozillaonline.com/"><img src="../logo/firefox.gif" alt="FireFox"></a></li><li><a
+            href="http://www.csdn.net/"><img src="../logo/csdn.gif" alt="CSDN"></a></li><li><a
+            href="http://www.w3school.com.cn/"><img src="../logo/w3school.gif" alt="W3School"></a></li><li><a
+            href="http://www.w3ctech.com/"><img src="../logo/web-club.gif" alt="w3ctech"></a></li></ul>
+        <p class="copyright">
+          <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="知识共享许可协议" style="border-width:0"
+              src="http://i.creativecommons.org/l/by/3.0/88x31.png"></a>
+          <br>
+          本作品采用<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">知识共享署名 3.0 Unported许可协议</a>进行许可。
+          <br>
+          <br>
+          <a href="http://www.miibeian.gov.cn/">Published By Xor</a>
+        </p>
+        <p class="w3cIcon"><a href="http://validator.w3.org/check?uri=referer"><img src="../images/valid-xhtml10.gif"
+            alt="Valid XHTML 1.0 Strict"></a></p>
+      </div>
+    </div>
+  </body>
+</html>

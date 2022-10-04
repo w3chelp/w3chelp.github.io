@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>SD9014: IE 标准模式中 BODY 元素的高度变化和 IE6(S) 中 BODY 元素的宽度变化会触发 window.onresize 事件 - W3Help</title>
+    <meta name="keywords" content="window, resize, 大小, 窗口, BODY">
+    <meta name="description" content="SD9014: IE 标准模式中 BODY 元素的高度变化和 IE6(S) 中 BODY 元素的宽度变化会触发 window.onresize 事件">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/article.css" media="all">
+  </head>
+  <body>
+    <div id="w3h_container">
+      <div id="w3h_header">
+        <div class="header_sidebar">
+          <h1 class="logo"><a href="../../index.html"><span>W3Help</span></a></h1>
+        </div>
+        <div class="header_content">
+          <ul class="navigation">
+            <li class="first_item"><a href="../../index.html">首页</a></li><li><a
+                href="../home/events.html">活动</a></li><li><a href="../home/news.html">新闻</a></li><li><a
+                href="../home/forum.html">论坛</a></li><li class="last_item"><a href="../home/about.html">关于我们</a></li>
+            <li class="search_item">
+              <form action="http://w3help.org/zh-cn/home/search.html" method="get">
+                <p><input name="key" id="keyInput" value="" onfocus="focusKey(this)" onblur="blurKey(this)" title="搜索"
+                    class="text"></p>
+                <p><input id="search_submit" type="image" src="../images/search_button.gif" alt="搜索"></p>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="w3h_body">
+        <div class="body_sidebar">
+          <div class="logo_shadow"></div>
+          <h2 class="category"><span><a href="../home/standards.html">标准</a></span></h2>
+          <ul class="theme"><li><a href="../standards/index.html">W3C 标准</a></li><li><a
+              href="../home/glossary.html">词汇表</a></li></ul>
+          <h2 class="category"><span><a href="../home/compatibility.html">兼容性</a></span></h2>
+          <ul class="theme"><li><a href="index.html" class="current">根本原因</a></li><li><a
+              href="../kb/index.html">知识库</a></li><li><a href="../casestudies/index.html">案例分析</a></li></ul>
+        </div>
+        <div class="body_content">
+          <p id="printButton"><a href="javascript:printArticle()" title="打印本文">打印</a></p>
+          <ul class="breadcrumbs"><li><a href="../../index.html" name="top">首页</a><span>»</span></li><li><a
+              href="../home/compatibility.html">兼容性</a><span>»</span></li><li><a
+              href="index.html">根本原因</a><span>»</span></li><li class="current">文章正文</li></ul>
+          <h1 class="title">SD9014: IE 标准模式中 BODY 元素的高度变化和 IE6(S) 中 BODY 元素的宽度变化会触发 window.onresize 事件</h1>
+          <ul class="toc"><li><a href="#standard_reference">标准参考</a><span>•</span></li><li><a
+              href="#description">问题描述</a><span>•</span></li><li><a href="#influence">造成的影响</a><span>•</span></li><li><a
+              href="#impacted_browsers">受影响的浏览器</a><span>•</span></li><li><a
+              href="#analysis_of_issues">问题分析</a><span>•</span></li><li><a
+              href="#solutions">解决方案</a><span>•</span></li><li><a href="#see_also">参见</a></li></ul>
+          <div id="w3h_content">
+            <address class="author">作者：陆远 孙东国</address>
+            <h2 id="standard_reference">标准参考</h2>
+            <p>Mozilla Developer Center 对 <strong>window.onresize</strong> 的描述如下，窗口 resize 事件的事件句柄。resize
+                事件在窗口大小变化时触发。并非规范的一部分。</p>
+            <p>MSDN 中 <strong>onresize</strong> 是一个许多对象均支持的事件，<strong>onresize</strong> 在对象的尺寸将要变化时被触发。IE 中
+                <strong>onresize</strong> 不仅可以应用于 window 对象，还可以应用于各种拥有布局（触发了hasLayout属性）的元素对象上。</p>
+            <p>关于 <strong>onresize</strong> 的详细信息，请参考 <a
+                href="https://developer.mozilla.org/En/DOM/Window.onresize">https://developer.mozilla.org/En/DOM/Window.onresize</a> 或 <a href="http://msdn.microsoft.com/en-us/library/ms536959(VS.85).aspx">http://msdn.microsoft.com/en-us/library/ms536959(VS.85).aspx</a>。</p>
+            <p><strong>window.onresize</strong> 虽然不是 W3C 规范中的事件，但已被目前各主流浏览器所支持。</p>
+            <p></p>
+            <h2 id="description">问题描述</h2>
+            <p>IE 标准模式下 BODY 元素的高度发生变化时就会触发 <strong>window.onresize</strong> 事件。</p>
+            <h2 id="influence">造成的影响</h2>
+            <p>在标准模式下，IE 对 <strong>onresize</strong> 事件的特殊支持可能导致作者由于动态改变了某个元素的尺寸而使 BODY 元素的尺寸也发生了变化，从而触发了
+                <strong>window.onresize</strong> 事件，但此时浏览器的窗口并没有改变大小。其他浏览器则不会触发 <strong>window.onresize</strong>
+                事件。</p>
+            <p>这种事件触发差异可能会造成兼容性问题。</p>
+            <h2 id="impacted_browsers">受影响的浏览器</h2>
+            <table class="list">
+              <tr>
+                <th>IE6(S) IE7(S) IE8(S)</th>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            <h2 id="analysis_of_issues">问题分析</h2>
+            <p>分析以下代码：</p>
+            <pre>&lt;!DOCTYPE html&gt; &lt;html style=&quot;border:5px solid blue;&quot;&gt; &lt;head&gt; &lt;/head&gt;
+                &lt;body style=&quot;border:5px solid green;&quot;&gt; &lt;div id=&quot;d&quot;
+                style=&quot;background:gray; height:30px;&quot;&gt;&lt;/div&gt; &lt;div id=&quot;e&quot;
+                style=&quot;background:lightgray;&quot;&gt;Test line&lt;/div&gt; &lt;script&gt; var d =
+                document.getElementById(&quot;d&quot;); var c = 0; setInterval(function () { c = parseInt(Math.random()
+                * 100); d.style.height = c + &quot;px&quot;; }, 1000); window.onresize = function () { d.innerHTML =
+                d.style.height; } &lt;/script&gt; &lt;/body&gt; &lt;/html&gt;</pre>
+            <p>测试代码中 BODY 元素下有两个 DIV 元素【d】和【e】，设置了一个定时器每隔 1 秒设置一次【d】的 height 特性，设置的值为 0—99px 的随机数。</p>
+            <p><strong>window.onresize</strong> 事件触发时，将【d】的 height 特性的值显示在【d】的内容上。</p>
+            <p>
+              将测试代码中的 HTML 与 BODY 元素的 height 特性设置为 3 组不同的情况与运行的结果列表如下
+              <br>
+              （<span class="hl_2">OK</span> 代表 <strong>window.onresize</strong> 被触发，<span class="hl_1">FAIL</span>
+                  代表没有被触发）：
+            </p>
+            <table class="compare">
+              <tr><th>&nbsp;</th><th>IE6(Q) IE7(Q) IE8(Q)</th><th>IE6(S) IE7(S) IE8(S)</th><th>Firefox Chrome Safari
+                  Opera</th></tr>
+              <tr>
+                <th>
+                  HTML: height:auto
+                  <br>
+                  BODY: height:auto
+                </th>
+                <td class="hl_1">FAIL</td>
+                <td class="hl_2">OK</td>
+                <td class="hl_1">FAIL</td>
+              </tr>
+              <tr>
+                <th>
+                  HTML: height:100%
+                  <br>
+                  BODY: height:auto
+                </th>
+                <td class="hl_1">FAIL</td>
+                <td class="hl_2">OK</td>
+                <td class="hl_1">FAIL</td>
+              </tr>
+              <tr>
+                <th>
+                  HTML: height:100%
+                  <br>
+                  BODY: height:100%
+                </th>
+                <td class="hl_1">FAIL</td>
+                <td class="hl_1">FAIL</td>
+                <td class="hl_1">FAIL</td>
+              </tr>
+            </table>
+            <p>在测试代码中，每隔 1 秒动态改变的是【d】的高度，从 <span>window.onresize</span> 事件触发条件上看应该与【d】的高度的改变没有关系，然而在 IE
+                标准模式中，【d】的高度的变化却触发了 <strong>window.onresize</strong> 事件。修改上述测试代码，对【d】的宽度每秒进行一次设置，结果显示在 IE6(S)
+                中【d】的宽度变化也会触发<strong>window.onresize</strong> 事件。</p>
+            <p>IE6(Q) IE7(Q) IE8(Q) 中，根元素为 BODY，且 BODY 元素高度始终为 100%。无论【d】如何改变高度，均不会影响 BODY 元素的高度，所以
+                <strong>window.onresize</strong> 没有被触发。</p>
+            <p>为 HTML 与 BODY 元素均设置为 height:100% 后，IE 标准模式下，这时【d】的高度的改变也不会影响到 BODY 元素高度的改变。所以
+                <strong>window.onresize</strong> 也没有被触发。而当 BODY 元素的高度不是100%，由于 BODY 子元素的高度变化导致了 BODY 自身高度的变化，IE
+                标准模式下就会触发 <strong>window.onresize</strong>，虽然这时浏览器的窗口的大小并没有发生变化。</p>
+            <h2 id="solutions">解决方案</h2>
+            <h3>1. 不期望触发 <strong>window.onresize</strong> 事件时：</h3>
+            <p>为 HTML 与 BODY 元素设置 height:100% 和 width:100% 以防止因为其尺寸变化而触发 <strong>window.onresize</strong>
+                事件，如上表中第三行。</p>
+            <h3>2. 期望触发 <strong>window.onresize</strong> 事件时：</h3>
+            <p>在非 IE 浏览器中，主动去触发一次 <strong>window.onresize</strong> 事件，代码如下：</p>
+            <pre>var evt = document.createEvent(&quot;MouseEvents&quot;); evt.initMouseEvent(&quot;resize&quot;, true,
+                true, this, 0, 0, 0, 0, 0, false, false, false, false, 0, null); window.dispatchEvent(evt);</pre>
+            <h2 id="see_also">参见</h2>
+            <h3>知识库</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <h3>相关问题</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <div class="appendix">
+              <h2>测试环境</h2>
+              <table class="list">
+                <tr>
+                  <th>操作系统版本:</th>
+                  <td>Windows 7 Ultimate build 7600</td>
+                </tr>
+                <tr>
+                  <th>浏览器版本:</th>
+                  <td>
+                    IE6
+                    <br>
+                    IE7
+                    <br>
+                    IE8
+                    <br>
+                    Firefox 3.6
+                    <br>
+                    Chrome 5.0.342.2 dev
+                    <br>
+                    Safari 4.0.4
+                    <br>
+                    Opera 10.50
+                  </td>
+                </tr>
+                <tr>
+                  <th>测试页面:</th>
+                  <td><a href="../../tests/SD9014/window_onresize.html">window_onresize.html</a></td>
+                </tr>
+                <tr>
+                  <th>本文更新时间:</th>
+                  <td>2010-06-24</td>
+                </tr>
+              </table>
+              <h2>关键字</h2>
+              <p>window resize 大小 窗口 BODY</p>
+            </div>
+            <div id="forumLink">
+              <div>本篇文章正在公测阶段，错误在所难免，欢迎大家提出宝贵的意见和建议。</div>
+              <a href="http://forum.csdn.net/SList/CrossBrowser/">发表评论 »</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="w3h_footer">
+      <div class="footer_content">
+        <ul><li><a href="http://www.google.com/"><img src="../logo/google.gif" alt="Google"></a></li><li><a
+            href="http://www.chinaw3c.org/"><img src="../logo/w3c-china.gif" alt="W3C-China"></a></li><li><a
+            href="http://www.mozillaonline.com/"><img src="../logo/firefox.gif" alt="FireFox"></a></li><li><a
+            href="http://www.csdn.net/"><img src="../logo/csdn.gif" alt="CSDN"></a></li><li><a
+            href="http://www.w3school.com.cn/"><img src="../logo/w3school.gif" alt="W3School"></a></li><li><a
+            href="http://www.w3ctech.com/"><img src="../logo/web-club.gif" alt="w3ctech"></a></li></ul>
+        <p class="copyright">
+          <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="知识共享许可协议" style="border-width:0"
+              src="http://i.creativecommons.org/l/by/3.0/88x31.png"></a>
+          <br>
+          本作品采用<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">知识共享署名 3.0 Unported许可协议</a>进行许可。
+          <br>
+          <br>
+          <a href="http://www.miibeian.gov.cn/">Published By Xor</a>
+        </p>
+        <p class="w3cIcon"><a href="http://validator.w3.org/check?uri=referer"><img src="../images/valid-xhtml10.gif"
+            alt="Valid XHTML 1.0 Strict"></a></p>
+      </div>
+    </div>
+  </body>
+</html>

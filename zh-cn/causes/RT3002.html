@@ -1,0 +1,503 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>RT3002: 元素和其子孙元素的 'text-decoration' 特性对其内文本的渲染在各浏览器中不同 - W3Help</title>
+    <meta name="keywords" content="text-decoration, 文本装饰">
+    <meta name="description" content="RT3002: 元素和其子孙元素的 'text-decoration' 特性对其内文本的渲染在各浏览器中不同">
+    <link rel="stylesheet" type="text/css" href="../css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/article.css" media="all">
+  </head>
+  <body>
+    <div id="w3h_container">
+      <div id="w3h_header">
+        <div class="header_sidebar">
+          <h1 class="logo"><a href="../../index.html"><span>W3Help</span></a></h1>
+        </div>
+        <div class="header_content">
+          <ul class="navigation">
+            <li class="first_item"><a href="../../index.html">首页</a></li><li><a
+                href="../home/events.html">活动</a></li><li><a href="../home/news.html">新闻</a></li><li><a
+                href="../home/forum.html">论坛</a></li><li class="last_item"><a href="../home/about.html">关于我们</a></li>
+            <li class="search_item">
+              <form action="http://w3help.org/zh-cn/home/search.html" method="get">
+                <p><input name="key" id="keyInput" value="" onfocus="focusKey(this)" onblur="blurKey(this)" title="搜索"
+                    class="text"></p>
+                <p><input id="search_submit" type="image" src="../images/search_button.gif" alt="搜索"></p>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="w3h_body">
+        <div class="body_sidebar">
+          <div class="logo_shadow"></div>
+          <h2 class="category"><span><a href="../home/standards.html">标准</a></span></h2>
+          <ul class="theme"><li><a href="../standards/index.html">W3C 标准</a></li><li><a
+              href="../home/glossary.html">词汇表</a></li></ul>
+          <h2 class="category"><span><a href="../home/compatibility.html">兼容性</a></span></h2>
+          <ul class="theme"><li><a href="index.html" class="current">根本原因</a></li><li><a
+              href="../kb/index.html">知识库</a></li><li><a href="../casestudies/index.html">案例分析</a></li></ul>
+        </div>
+        <div class="body_content">
+          <p id="printButton"><a href="javascript:printArticle()" title="打印本文">打印</a></p>
+          <ul class="breadcrumbs"><li><a href="../../index.html" name="top">首页</a><span>»</span></li><li><a
+              href="../home/compatibility.html">兼容性</a><span>»</span></li><li><a
+              href="index.html">根本原因</a><span>»</span></li><li class="current">文章正文</li></ul>
+          <h1 class="title">RT3002: 元素和其子孙元素的 'text-decoration' 特性对其内文本的渲染在各浏览器中不同</h1>
+          <ul class="toc"><li><a href="#standard_reference">标准参考</a><span>•</span></li><li><a
+              href="#description">问题描述</a><span>•</span></li><li><a href="#influence">造成的影响</a><span>•</span></li><li><a
+              href="#impacted_browsers">受影响的浏览器</a><span>•</span></li><li><a
+              href="#analysis_of_issues">问题分析</a><span>•</span></li><li><a
+              href="#solutions">解决方案</a><span>•</span></li><li><a href="#see_also">参见</a></li></ul>
+          <div id="w3h_content">
+            <address class="author">作者：丁宗秋</address>
+            <h2 id="standard_reference">标准参考</h2>
+            <p>'text-decoration' 特性描述了一个元素的附加文本装饰，它的值包括：'none'、'underline'、'overline'、'line-through' 和 'blink'，初始值为
+                'none'。</p>
+            <ul><li>'text-decoration' 值为 'underline' 、 'overline' 或 'line-through' 时只对文本有效，如果元素中没有文本，则 UA
+                不应用这些装饰。</li><li>在行内元素上设置 'text-decoration' 特性，会影响该元素产生的所有框（box）；</li><li>在非行内元素上设置 'text-decoration'
+                特性，会影响其内正常流中的行内子元素和块级子元素， 但不影响其内浮动和绝对定位子元素，以及 'display' 特性值为 'inline-table' 和 'inline-block'
+                子元素；</li><li>子孙元素上设置的 'text-decoration' 特性，不影响父元素上 'text-decoration' 的装饰。</li></ul>
+            <p></p>
+            <p>关于 'text-decoration' 特性的详细信息，请参考 W3C CSS 2.1 规范 <a
+                href="http://www.w3.org/TR/CSS21/text.html#decoration">16.3 Decoration</a>。</p>
+            <p></p>
+            <p></p>
+            <h2 id="description">问题描述</h2>
+            <ol><li>在行内元素上应用 'text-decoration' 时，其内子元素在各浏览器下的表现存在差异；</li><li>在非行内元素上应用 'text-decoration'
+                时，其内子元素在各浏览器下的表现存在差异；</li><li>元素与其子孙元素都设置了 'text-decoration' 时，它们间的相互影响在各浏览器下存在差异；</li></ol>
+            <h2 id="influence">造成的影响</h2>
+            <p>在不同浏览器中的表现存在差异。</p>
+            <h2 id="impacted_browsers">受影响的浏览器</h2>
+            <table class="list">
+              <tr>
+                <th>所有浏览器</th>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            <h2 id="analysis_of_issues">问题分析</h2>
+            <h3>1. 在行内元素上应用 'text-decoration' 时，其内子元素在各浏览器下的表现存在差异</h3>
+            <p>当行内元素包含块级或非行内元素时，在各浏览器下表现有差异，分析以下代码：</p>
+            <pre>&lt;span style="text-decoration:underline;color:blue;"&gt; &lt;div
+                style="float:left;margin-top:16px;"&gt; float element &lt;/div&gt; &lt;/span&gt; &lt;span
+                style="text-decoration:underline;color:blue;"&gt; &lt;div style="clear:both;"&gt; block element
+                &lt;/div&gt; &lt;/span&gt; &lt;span style="text-decoration:underline;color:blue;"&gt; anonymous inline
+                box&lt;br/&gt; &lt;/span&gt; &lt;span style="text-decoration:underline;color:blue;"&gt; &lt;span&gt;
+                inline element &lt;/span&gt;&lt;br/&gt; &lt;/span&gt; &lt;span
+                style="text-decoration:underline;color:blue;"&gt; &lt;div
+                style="position:absolute;top:5px;left:8px;"&gt; absolute position element &lt;/div&gt; &lt;/span&gt;
+                &lt;span style="text-decoration:underline;color:blue;"&gt; &lt;div style="position:relative;"&gt;
+                relative position element &lt;/div&gt; &lt;/span&gt; &lt;span
+                style="text-decoration:underline;color:blue;"&gt; &lt;div style="display:inline-table;"&gt; inline-table
+                &lt;/div&gt;&lt;br/&gt; &lt;/span&gt; &lt;span style="text-decoration:underline;color:blue;"&gt; &lt;div
+                style="display:inline-block;"&gt; inline-block &lt;/div&gt;&lt;br/&gt; &lt;/span&gt; &lt;span
+                style="text-decoration:underline;color:blue;"&gt; &lt;img src="pic.png" /&gt;&lt;br/&gt; &lt;/span&gt;
+                &lt;span style="text-decoration:underline;color:blue;"&gt; &lt;img src="pic.png" /&gt; text after the
+                IMG &lt;/span&gt;</pre>
+            <p>在行内元素上设置了 'text-decoration' 和 'color' 特性，其内子元素有：匿名行内元素，行内元素，图片，图片加文本，块级元素， 浮动元素，绝对定位元素，相对定位元素，以及
+                'inline-table' 和 'inline-block' 元素。各浏览器下中表现汇总如下：</p>
+            <table class="compare">
+              <tr><th>IE6 IE7 IE8(Q) Firefox(Q)</th><th>Firefox(S)</th><th>Chrome(S) Safari(S)</th></tr>
+              <tr>
+                <td><img src="../../tests/RT3002/RT3002-1.png" alt="运行效果截图"></td>
+                <td><img src="../../tests/RT3002/RT3002-2.png" alt="运行效果截图"></td>
+                <td><img src="../../tests/RT3002/RT3002-3.png" alt="运行效果截图"></td>
+              </tr>
+            </table>
+            <br>
+            <table class="compare">
+              <tr><th>Chrome(Q) Safari(Q)</th><th>Opera IE8(S)</th></tr>
+              <tr>
+                <td><img src="../../tests/RT3002/RT3002-4.png" alt="运行效果截图"></td>
+                <td><img src="../../tests/RT3002/RT3002-5.png" alt="运行效果截图"></td>
+              </tr>
+            </table>
+            <p>根据测试结果进一步整理为更直观的表格，如下：<sup>1</sup></p>
+            <table class="compare">
+              <tr><th>子元素类型</th><th>IE6 IE7 IE8(Q) Firefox(Q)</th><th>Firefox(S)</th><th>Chrome(S)
+                  Safari(S)</th><th>Chrome(Q) Safari(Q)</th><th>Opera IE8(S)</th></tr>
+              <tr>
+                <th>绝对定位元素</th>
+                <td>受影响</td>
+                <td>不受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>不受影响</td>
+              </tr>
+              <tr>
+                <th>相对定位元素</th>
+                <td>受影响</td>
+                <td>不受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+              </tr>
+              <tr>
+                <th>浮动元素</th>
+                <td>受影响</td>
+                <td>不受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>不受影响</td>
+              </tr>
+              <tr>
+                <th>块级元素</th>
+                <td>受影响</td>
+                <td>不受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+              </tr>
+              <tr>
+                <th>行内[匿名]元素</th>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+              </tr>
+              <tr>
+                <th>inline-table</th>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>不受影响</td>
+                <td>不受影响</td>
+                <td>不受影响</td>
+              </tr>
+              <tr>
+                <th>inline-block</th>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>不受影响</td>
+                <td>不受影响</td>
+                <td>不受影响</td>
+              </tr>
+              <tr>
+                <th>IMG 元素</th>
+                <td>不受影响</td>
+                <td>不受影响</td>
+                <td>不受影响</td>
+                <td>不受影响</td>
+                <td>不受影响</td>
+              </tr>
+              <tr>
+                <th>IMG 元素 + 文本</th>
+                <td>不影响+影响</td>
+                <td>影响+影响</td>
+                <td>影响+影响</td>
+                <td>不影响+影响</td>
+                <td>不影响+影响</td>
+              </tr>
+            </table>
+            <p class="comment">注1：“不受影响”指父元素上设置的 'text- decoration' 属性对子元素无效</p>
+            <p>从上表中可以直观的看出，行内元素上设置 'text-decoration' 属性时，其内子元素的渲染在各浏览器下存在较大差异。 另，'display' 值 'inline-table' 和
+                'inline-block' 在 IE6、IE7 和 IE8(Q)下不被支持， 本例中设置有以上值的 DIV 元素在这些浏览器下被视为块级元素。</p>
+            <h3>2. 在非行内元素上应用 'text-decoration' 时，其内子元素在各浏览器下的表现存在差异</h3>
+            <p>对于此问题，我们通过以下的测试用例来说明，分析以下代码：</p>
+            <pre>&lt;div style="text-decoration:underline;color:blue;"&gt; &lt;div
+                style="float:left;margin-top:16px;"&gt; float element &lt;/div&gt; &lt;div style="clear:both;"&gt; block
+                element &lt;/div&gt; anonymous inline box&lt;br/&gt; &lt;span&gt; inline element &lt;/span&gt; &lt;div
+                style="position:absolute;top:5px;left:8px;"&gt; absolute position element &lt;/div&gt; &lt;div
+                style="position:relative;"&gt; relative position element &lt;/div&gt; &lt;div
+                style="display:inline-table;"&gt; inline-table &lt;/div&gt;&lt;br/&gt; &lt;div
+                style="display:inline-block;"&gt; inline-block &lt;/div&gt;&lt;br/&gt; &lt;img src="pic.png" /&gt;
+                &lt;/div&gt;</pre>
+            <p>在非行内元素上设置了 'text-decoration' 和 'color' 特性，其内子元素包括：匿名行内元素，行内元素，图片，块级元素，浮动元素， 绝对定位元素，相对定位元素，以及
+                'inline-table' 和 'inline-block' 元素。各浏览器下中表现汇总如下：</p>
+            <table class="compare">
+              <tr><th>IE6 IE7 IE8(Q) Firefox(Q)</th><th>Firefox(S)</th><th>Chrome Safari</th><th>Opera IE8(S)</th></tr>
+              <tr>
+                <td><img src="../../tests/RT3002/RT3002-6.png" alt="运行效果截图"></td>
+                <td><img src="../../tests/RT3002/RT3002-7.png" alt="运行效果截图"></td>
+                <td><img src="../../tests/RT3002/RT3002-8.png" alt="运行效果截图"></td>
+                <td><img src="../../tests/RT3002/RT3002-9.png" alt="运行效果截图"></td>
+              </tr>
+            </table>
+            <p>根据测试结果进一步整理为更直观的表格，如下：<sup>2</sup></p>
+            <table class="compare">
+              <tr><th>子元素类型</th><th>IE6 IE7 IE8(Q) Firefox(Q)</th><th>Firefox(S)</th><th>Chrome Safari</th><th>Opera
+                  IE8(S)</th></tr>
+              <tr>
+                <th>绝对定位元素</th>
+                <td>受影响</td>
+                <td>不受影响</td>
+                <td>受影响</td>
+                <td>不受影响</td>
+              </tr>
+              <tr>
+                <th>相对定位元素</th>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+              </tr>
+              <tr>
+                <th>浮动元素</th>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>不受影响</td>
+              </tr>
+              <tr>
+                <th>块级元素</th>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+              </tr>
+              <tr>
+                <th>行内[匿名]元素</th>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>受影响</td>
+              </tr>
+              <tr>
+                <th>inline-table</th>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>不受影响</td>
+                <td>不受影响</td>
+              </tr>
+              <tr>
+                <th>inline-block</th>
+                <td>受影响</td>
+                <td>受影响</td>
+                <td>不受影响</td>
+                <td>不受影响</td>
+              </tr>
+              <tr>
+                <th>IMG 元素</th>
+                <td>不受影响</td>
+                <td>受影响</td>
+                <td>不受影响</td>
+                <td>不受影响</td>
+              </tr>
+            </table>
+            <p class="comment">注2：“不受影响”指父元素上设置的 'text- decoration' 特性对子元素无效。</p>
+            <p>从上表中可直观的看出，非行内元素上设置 'text-decoration' 特性时，其内子元素的渲染在 Opera 和 IE(S)下最符合标准中所描述的。 另，'display' 特性值为
+                'inline-table' 和 'inline-block' 在 IE6、IE7 和 IE8(Q) 下不被支持， 本例中设置有以上值的 DIV 元素在这些浏览器下被视为块级元素。</p>
+            <p>此外，当子元素为 IMG 元素 + 文本时，同行内元素上应用 'text-decoration' 特性时一致。</p>
+            <h3>3. 元素与其子孙元素都设置了 'text-decoration' 时，它们间的相互影响在各浏览器下存在差异</h3>
+            <p>对于此问题，我们通过以下的测试用例来说明，分析以下代码：</p>
+            <pre>&lt;span style="text-decoration:line-through;color:red;"&gt; &lt;div
+                style="text-decoration:underline;color:blue;float:left;margin-top:16px;"&gt; float element &lt;/div&gt;
+                &lt;/span&gt; &lt;span style="text-decoration:line-through;color:red;"&gt; &lt;div
+                style="clear:both;text-decoration:underline;color:blue;"&gt; block element &lt;/div&gt; &lt;/span&gt;
+                &lt;span style="text-decoration:line-through;color:red;"&gt; &lt;span
+                style="text-decoration:underline;color:blue;"&gt; inline element &lt;/span&gt;&lt;br/&gt; &lt;/span&gt;
+                &lt;span style="text-decoration:line-through;color:red;"&gt; &lt;div
+                style="text-decoration:underline;color:blue;position:absolute;top:5px;left:8px;"&gt; absolute position
+                element &lt;/div&gt; &lt;/span&gt; &lt;span style="text-decoration:line-through;color:red;"&gt; &lt;div
+                style="text-decoration:underline;color:blue;position:relative;"&gt; relative position element
+                &lt;/div&gt; &lt;/span&gt; &lt;span style="text-decoration:line-through;color:red;"&gt; &lt;div
+                style="text-decoration:underline;color:blue;display:inline-table;"&gt; inline-table
+                &lt;/div&gt;&lt;br/&gt; &lt;/span&gt; &lt;span style="text-decoration:line-through;color:red;"&gt;
+                &lt;div style="text-decoration:underline;color:blue;display:inline-block;"&gt; inline-block
+                &lt;/div&gt;&lt;br/&gt; &lt;/span&gt;</pre>
+            <p>各浏览器下中表现汇总如下：</p>
+            <table class="compare">
+              <tr><th>IE6 IE7 IE8(Q) Firefox(Q)</th><th>Firefox(S)</th><th>Chrome Safari</th><th>Opera IE8(S)</th></tr>
+              <tr>
+                <td><img src="../../tests/RT3002/RT3002-10.png" alt="运行效果截图"></td>
+                <td><img src="../../tests/RT3002/RT3002-11.png" alt="运行效果截图"></td>
+                <td><img src="../../tests/RT3002/RT3002-12.png" alt="运行效果截图"></td>
+                <td><img src="../../tests/RT3002/RT3002-13.png" alt="运行效果截图"></td>
+              </tr>
+            </table>
+            <p>根据测试结果进一步整理为更直观的表格，如下：<sup>3</sup></p>
+            <table class="compare">
+              <tr><th>子元素类型</th><th>IE6 IE7 IE8(Q) Firefox(Q)</th><th>Firefox(S)</th><th>Chrome Safari</th><th>Opera
+                  IE8(S)</th></tr>
+              <tr>
+                <th>绝对定位元素</th>
+                <td>不影响</td>
+                <td>影响</td>
+                <td>不影响</td>
+                <td>影响</td>
+              </tr>
+              <tr>
+                <th>相对定位元素</th>
+                <td>不影响</td>
+                <td>影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+              </tr>
+              <tr>
+                <th>浮动元素</th>
+                <td>不影响</td>
+                <td>影响</td>
+                <td>不影响</td>
+                <td>影响</td>
+              </tr>
+              <tr>
+                <th>块级元素</th>
+                <td>不影响</td>
+                <td>影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+              </tr>
+              <tr>
+                <th>行内元素</th>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+              </tr>
+              <tr>
+                <th>inline-table</th>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>影响</td>
+                <td>影响</td>
+              </tr>
+              <tr>
+                <th>inline-block</th>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>影响</td>
+                <td>影响</td>
+              </tr>
+            </table>
+            <p class="comment">注3：“影响”指父元素上设置的 'text-decoration' 特性对子元素无效。</p>
+            <p>当 'text-decoration' 应用在行内元素上时，它对其内子元素文本的装饰效果无法应用到上表单元格中标为“影响”的元素上。 如在 Firefox(S)
+                下，行内元素内嵌块级元素时，块级元素的文本装饰效果与其父元素（行内元素）的 'text-decoration' 特性设置无关。</p>
+            <p>以上结果都是在父元素为行内元素时测得的，下面修改测试代码，把父元素 SPAN 改为块级元素 DIV，再次测试，记录结果整理如下：<sup>4</sup></p>
+            <table class="compare">
+              <tr><th>子元素类型</th><th>IE6 IE7 IE8(Q) Firefox(Q)</th><th>Firefox(S)</th><th>Chrome Safari</th><th>Opera
+                  IE8(S)</th></tr>
+              <tr>
+                <th>绝对定位元素</th>
+                <td>不影响</td>
+                <td>影响</td>
+                <td>不影响</td>
+                <td>影响</td>
+              </tr>
+              <tr>
+                <th>相对定位元素</th>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+              </tr>
+              <tr>
+                <th>浮动元素</th>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>影响</td>
+              </tr>
+              <tr>
+                <th>块级元素</th>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+              </tr>
+              <tr>
+                <th>行内元素</th>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>不影响</td>
+              </tr>
+              <tr>
+                <th>inline-table</th>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>影响</td>
+                <td>影响</td>
+              </tr>
+              <tr>
+                <th>inline-block</th>
+                <td>不影响</td>
+                <td>不影响</td>
+                <td>影响</td>
+                <td>影响</td>
+              </tr>
+            </table>
+            <p class="comment">注4：“影响”指父元素上设置的 'text-decoration' 特性对子元素无效。</p>
+            <h2 id="solutions">解决方案</h2>
+            <p>根据具体应用环境，参照“问题分析”中各种情况在各浏览器下的结果汇总使用兼容性较好的方案。</p>
+            <h2 id="see_also">参见</h2>
+            <h3>知识库</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <h3>相关问题</h3>
+            <ul class="see_also"><li><a href="#">...</a></li></ul>
+            <div class="appendix">
+              <h2>测试环境</h2>
+              <table class="list">
+                <tr>
+                  <th>操作系统版本:</th>
+                  <td>Windows 7 Ultimate build 7600</td>
+                </tr>
+                <tr>
+                  <th>浏览器版本:</th>
+                  <td>
+                    IE6
+                    <br>
+                    IE7
+                    <br>
+                    IE8
+                    <br>
+                    Firefox 3.6.3
+                    <br>
+                    Opera 10.51
+                    <br>
+                    Chrome 5.0.396.0 dev
+                    <br>
+                    Safari 4.0.4
+                  </td>
+                </tr>
+                <tr>
+                  <th>测试页面:</th>
+                  <td>
+                    <a href="../../tests/RT3002/inline_parent_text_decoration.html">inline_parent_text_decoration</a>
+                    <br>
+                    <a
+                        href="../../tests/RT3002/uninline_parent_text_decoration.html">uninline_parent_text_decoration</a>
+                    <br>
+                    <a
+                        href="../../tests/RT3002/inline_parent_and_children_text_decoration.html">inline_parent_and_children_text_decoration</a>
+                  </td>
+                </tr>
+                <tr>
+                  <th>本文更新时间:</th>
+                  <td>2010-07-21</td>
+                </tr>
+              </table>
+              <h2>关键字</h2>
+              <p>text-decoration 文本装饰</p>
+            </div>
+            <div id="forumLink">
+              <div>本篇文章正在公测阶段，错误在所难免，欢迎大家提出宝贵的意见和建议。</div>
+              <a href="http://forum.csdn.net/SList/CrossBrowser/">发表评论 »</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="w3h_footer">
+      <div class="footer_content">
+        <ul><li><a href="http://www.google.com/"><img src="../logo/google.gif" alt="Google"></a></li><li><a
+            href="http://www.chinaw3c.org/"><img src="../logo/w3c-china.gif" alt="W3C-China"></a></li><li><a
+            href="http://www.mozillaonline.com/"><img src="../logo/firefox.gif" alt="FireFox"></a></li><li><a
+            href="http://www.csdn.net/"><img src="../logo/csdn.gif" alt="CSDN"></a></li><li><a
+            href="http://www.w3school.com.cn/"><img src="../logo/w3school.gif" alt="W3School"></a></li><li><a
+            href="http://www.w3ctech.com/"><img src="../logo/web-club.gif" alt="w3ctech"></a></li></ul>
+        <p class="copyright">
+          <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="知识共享许可协议" style="border-width:0"
+              src="http://i.creativecommons.org/l/by/3.0/88x31.png"></a>
+          <br>
+          本作品采用<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">知识共享署名 3.0 Unported许可协议</a>进行许可。
+          <br>
+          <br>
+          <a href="http://www.miibeian.gov.cn/">Published By Xor</a>
+        </p>
+        <p class="w3cIcon"><a href="http://validator.w3.org/check?uri=referer"><img src="../images/valid-xhtml10.gif"
+            alt="Valid XHTML 1.0 Strict"></a></p>
+      </div>
+    </div>
+  </body>
+</html>
